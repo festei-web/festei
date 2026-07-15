@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { SuccessState } from "@/components/ui/states";
 import { useToast } from "@/components/ui/toast";
 import { submitLead } from "@/lib/leads";
+import { track } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 import { categories } from "@/data/categories";
 import {
@@ -89,6 +90,7 @@ function SelfServiceForm() {
     const result = await submitLead("owner_self_service", payload);
     if (result.ok) {
       setSubmitted(true);
+      track("owner_form_submitted", { mode: "cadastro" });
       show("Cadastro enviado com sucesso.", "success");
     } else {
       show(result.error ?? "Não foi possível enviar seu cadastro agora.", "error");
@@ -175,6 +177,7 @@ function AssistedForm() {
     const result = await submitLead("owner_assisted", values);
     if (result.ok) {
       setSubmitted(true);
+      track("owner_form_submitted", { mode: "ligacao" });
       show("Recebemos seu contato.", "success");
     } else {
       show(result.error ?? "Não foi possível registrar seu contato agora.", "error");

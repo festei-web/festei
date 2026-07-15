@@ -45,7 +45,8 @@ function MobileFilterDrawer({
   const activeCount =
     (filters.location ? 1 : 0) +
     (filters.category ? 1 : 0) +
-    (filters.minCapacity ? 1 : 0) +
+    (filters.eventType ? 1 : 0) +
+    (filters.guestCount ? 1 : 0) +
     (filters.maxPrice ? 1 : 0) +
     filters.amenityIds.length;
 

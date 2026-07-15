@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PartyPopper } from "lucide-react";
@@ -12,6 +13,7 @@ import { SuccessState } from "@/components/ui/states";
 import { ContactChannelSelector } from "./contact-channel-selector";
 import { useToast } from "@/components/ui/toast";
 import { submitLead } from "@/lib/leads";
+import { track } from "@/lib/analytics";
 import { eventTypeLabels } from "@/data/constants";
 import {
   availabilityRequestSchema,
@@ -25,18 +27,40 @@ import {
  * horário de início/fim (não apenas uma data) e tipo de celebração,
  * e o botão final diz "Enviar solicitação", nunca "Reservar".
  */
+
+// Máscara simples de telefone brasileiro: (21) 99999-9999 / (21) 9999-9999.
+function formatBrazilianPhone(value: string): string {
+  const digits = value.replace(/\D/g, "").slice(0, 11);
+  if (digits.length <= 2) return digits;
+  if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+  if (digits.length <= 10) {
+    return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+  }
+  return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+}
+
 export function AvailabilityForm({
   venueId,
   venueName,
+  venueSlug,
 }: {
   venueId: string;
   venueName: string;
+  venueSlug: string;
 }) {
   const { show } = useToast();
   const [submitted, setSubmitted] = React.useState(false);
+  const hasStartedRef = React.useRef(false);
   const [channelChoice, setChannelChoice] = React.useState<
     AvailabilityRequestInput["contactChannel"] | ""
   >("");
+
+  function markStarted() {
+    if (!hasStartedRef.current) {
+      hasStartedRef.current = true;
+      track("availability_request_started", { venueId });
+    }
+  }
 
   const {
     register,
@@ -56,6 +80,7 @@ export function AvailabilityForm({
     const result = await submitLead("availability_request", payload);
     if (result.ok) {
       setSubmitted(true);
+      track("availability_request_submitted", { venueId });
       show("Solicitação enviada com sucesso.", "success");
     } else {
       show(result.error ?? "Não foi possível enviar sua solicitação agora.", "error");
@@ -65,14 +90,24 @@ export function AvailabilityForm({
   if (submitted) {
     return (
       <SuccessState
-        title="Recebemos sua solicitação"
-        description={`Nossa equipe entrará em contato pelo canal escolhido para confirmar a disponibilidade de ${venueName}.`}
+        title="Solicitação enviada com sucesso"
+        description="O responsável pelo local recebeu os dados do seu evento e poderá entrar em contato pelo canal informado."
+        action={
+          <div className="mt-6 flex flex-col gap-2 sm:flex-row">
+            <Button asChild variant="secondary" size="sm">
+              <Link href="/locais">Voltar aos resultados</Link>
+            </Button>
+            <Button asChild variant="secondary" size="sm">
+              <Link href={`/locais/${venueSlug}`}>Ver este local novamente</Link>
+            </Button>
+          </div>
+        }
       />
     );
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4" noValidate>
+    <form onSubmit={handleSubmit(onSubmit)} onFocus={markStarted} className="flex flex-col gap-4" noValidate>
       <div className="flex items-center gap-2 text-sm font-semibold text-primary">
         <PartyPopper className="h-4 w-4" aria-hidden />
         Planeje sua celebração
@@ -131,8 +166,13 @@ export function AvailabilityForm({
         <Input
           label="Telefone / WhatsApp"
           placeholder="(21) 99999-9999"
+          inputMode="numeric"
           error={errors.phone?.message}
-          {...register("phone")}
+          {...register("phone", {
+            onChange: (e) => {
+              e.target.value = formatBrazilianPhone(e.target.value);
+            },
+          })}
         />
         <Input
           label="E-mail"
@@ -165,8 +205,13 @@ export function AvailabilityForm({
       />
 
       <Button type="submit" size="lg" fullWidth loading={isSubmitting}>
-        Enviar solicitação
+        Solicitar disponibilidade
       </Button>
+      <p className="text-xs text-gray-medium">
+        A solicitação não confirma uma reserva e não gera cobrança. O
+        responsável receberá os dados do evento e poderá entrar em contato
+        para informar disponibilidade e condições.
+      </p>
       <p className="text-xs text-gray-medium">
         Seus dados serão usados apenas para viabilizar o contato com o
         proprietário deste local. Veja nossa{" "}

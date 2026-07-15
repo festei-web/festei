@@ -1,7 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import { SafeImage } from "@/components/ui/safe-image";
 import { Reveal } from "@/components/ui/reveal";
 import { categories } from "@/data/categories";
+import { track } from "@/lib/analytics";
 
 export function CategoriesSection() {
   return (
@@ -11,7 +14,7 @@ export function CategoriesSection() {
           Explore
         </span>
         <h2 className="mt-2 text-3xl font-bold tracking-tight text-ink md:text-4xl">
-          Escolha o tipo de local ideal
+          Que tipo de local você procura?
         </h2>
         <p className="mt-3 text-gray-medium">
           Ambientes preparados para receber os mais diversos tipos de celebração.
@@ -23,6 +26,7 @@ export function CategoriesSection() {
           <Reveal key={category.id} delay={i * 60}>
             <Link
               href={`/locais?categoria=${category.id}`}
+              onClick={() => track("category_selected", { category: category.id })}
               className="group relative flex h-40 items-end overflow-hidden rounded-2xl shadow-[var(--shadow-sm)] transition-shadow duration-300 hover:shadow-[var(--shadow-md)] sm:h-48"
             >
               <SafeImage

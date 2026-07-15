@@ -2,11 +2,13 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { MapPin, Users, Heart, BadgeCheck } from "lucide-react";
+import { MapPin, Users, Heart } from "lucide-react";
 import type { Venue } from "@/types";
 import { formatPrice } from "@/data/constants";
 import { SafeImage } from "@/components/ui/safe-image";
 import { Badge } from "@/components/ui/badge";
+import { VerifiedBadge } from "./verified-badge";
+import { useFavorite } from "@/lib/favorites";
 import { cn } from "@/lib/utils";
 
 const availabilityLabel: Record<Venue["demoAvailability"], string> = {
@@ -22,7 +24,7 @@ const availabilityVariant: Record<Venue["demoAvailability"], "success" | "outlin
 };
 
 export function VenueCard({ venue }: { venue: Venue }) {
-  const [favorited, setFavorited] = React.useState(false);
+  const { favorited, toggle } = useFavorite(venue.id);
 
   return (
     <Link
@@ -39,14 +41,7 @@ export function VenueCard({ venue }: { venue: Venue }) {
         />
 
         <div className="absolute inset-x-0 top-0 flex items-start justify-between p-3">
-          {venue.featured ? (
-            <span className="flex items-center gap-1 rounded-full bg-white/95 px-2.5 py-1 text-[11px] font-semibold text-primary shadow-sm">
-              <BadgeCheck className="h-3.5 w-3.5" aria-hidden />
-              Verificado
-            </span>
-          ) : (
-            <span />
-          )}
+          {venue.verified ? <VerifiedBadge /> : <span />}
 
           <button
             type="button"
@@ -54,7 +49,7 @@ export function VenueCard({ venue }: { venue: Venue }) {
             aria-pressed={favorited}
             onClick={(e) => {
               e.preventDefault();
-              setFavorited((f) => !f);
+              toggle();
             }}
             className="flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-ink shadow-sm transition-transform duration-150 hover:scale-110 active:scale-95"
           >

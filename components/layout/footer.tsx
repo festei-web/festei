@@ -5,9 +5,10 @@ const columns = [
   {
     title: "Festei",
     links: [
+      { href: "/locais", label: "Encontrar locais" },
       { href: "/sobre", label: "Sobre" },
       { href: "/#como-funciona", label: "Como funciona" },
-      { href: "/anunciar", label: "Proprietários" },
+      { href: "/anunciar", label: "Para proprietários" },
       { href: "/#faq", label: "FAQ" },
     ],
   },

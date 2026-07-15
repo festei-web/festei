@@ -38,6 +38,9 @@ export interface Venue {
   rules: string[];
   images: string[];
   featured: boolean;
+  // Selo "Verificado" — independente de featured. Ver Design System Cap. 9
+  // para o que a verificação cobre (e não cobre).
+  verified: boolean;
   // Indicador visual demonstrativo — nunca disponibilidade real (Design System Cap. 8)
   demoAvailability: "disponivel" | "poucas-datas" | "sob-consulta";
 }
@@ -51,6 +54,7 @@ export interface Category {
 export interface FaqItem {
   question: string;
   answer: string;
+  group: "buscando" | "proprietarios";
 }
 
 export type ContactChannel = "apenas_texto" | "aceita_ligacao";

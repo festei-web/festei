@@ -1,21 +1,26 @@
-import { Search, SlidersHorizontal, MessageCircleQuestion } from "lucide-react";
+import { PartyPopper, SlidersHorizontal, Send, MessageCircle } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 
 const steps = [
   {
-    icon: Search,
-    title: "Encontre",
-    text: "Pesquise locais de acordo com sua necessidade.",
+    icon: PartyPopper,
+    title: "Conte como será seu evento",
+    text: "Informe o tipo de comemoração, a região e a quantidade aproximada de convidados.",
   },
   {
     icon: SlidersHorizontal,
-    title: "Compare",
-    text: "Veja fotos, capacidade e informações importantes.",
+    title: "Compare locais compatíveis",
+    text: "Veja fotos, capacidade, estrutura, regras e valores iniciais.",
   },
   {
-    icon: MessageCircleQuestion,
-    title: "Solicite",
-    text: "Entre em contato e encontre a melhor opção para o seu evento.",
+    icon: Send,
+    title: "Solicite disponibilidade",
+    text: "Envie os dados do evento para o responsável pelo local.",
+  },
+  {
+    icon: MessageCircle,
+    title: "Combine os detalhes",
+    text: "Converse diretamente para confirmar condições, contrato e reserva.",
   },
 ];
 
@@ -32,7 +37,7 @@ export function HowItWorks() {
           </h2>
         </Reveal>
 
-        <div className="relative mt-16 grid gap-10 md:grid-cols-3 md:gap-6">
+        <div className="relative mt-16 grid gap-10 md:grid-cols-4 md:gap-6">
           <div
             className="absolute left-0 right-0 top-8 hidden h-px bg-border md:block"
             aria-hidden
@@ -45,11 +50,19 @@ export function HowItWorks() {
               <span className="mt-4 text-xs font-semibold uppercase tracking-wide text-primary">
                 Passo {i + 1}
               </span>
-              <h3 className="mt-1 text-xl font-semibold text-ink">{step.title}</h3>
+              <h3 className="mt-1 text-lg font-semibold text-ink">{step.title}</h3>
               <p className="mt-2 max-w-[240px] text-sm text-gray-medium">{step.text}</p>
             </Reveal>
           ))}
         </div>
+
+        <Reveal delay={400} className="mx-auto mt-12 max-w-2xl rounded-2xl border border-border bg-gray-light/50 p-5 text-center">
+          <p className="text-sm text-gray-medium">
+            A solicitação não confirma uma reserva automaticamente. A negociação
+            acontece diretamente entre você e o responsável pelo local, e não há
+            cobrança no momento do envio.
+          </p>
+        </Reveal>
       </div>
     </section>
   );

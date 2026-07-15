@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { MapPin, Users, Info, ListChecks, ShieldCheck } from "lucide-react";
+import { MapPin, Users, Info, ListChecks, ShieldCheck, Wallet, UserRound } from "lucide-react";
 import { getVenueBySlug, getSimilarVenues } from "@/data/venues";
 import { getCategoryById } from "@/data/categories";
 import { eventTypeLabels, formatPrice } from "@/data/constants";
 import { Breadcrumb } from "@/components/marketplace/breadcrumb";
 import { VenueGallery } from "@/components/marketplace/venue-gallery";
 import { AmenitiesGrid } from "@/components/marketplace/amenities-grid";
+import { AreaPreview } from "@/components/marketplace/area-preview";
+import { VerifiedBadge } from "@/components/marketplace/verified-badge";
 import { DemoAvailabilityNote } from "@/components/marketplace/demo-availability-note";
 import { DemoDataBanner } from "@/components/marketplace/demo-data-banner";
 import { AvailabilityForm } from "@/components/marketplace/availability-form";
@@ -94,9 +96,12 @@ export default async function VenueDetailPage({
           {/* Informações Principais */}
           <div className="flex items-start justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-                {venue.name}
-              </h1>
+              <div className="flex flex-wrap items-center gap-2.5">
+                <h1 className="text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+                  {venue.name}
+                </h1>
+                {venue.verified && <VerifiedBadge compact />}
+              </div>
               <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-gray-medium">
                 <span className="flex items-center gap-1.5">
                   <MapPin className="h-4 w-4" aria-hidden />
@@ -108,7 +113,7 @@ export default async function VenueDetailPage({
                 </span>
               </div>
             </div>
-            <VenueActionButtons />
+            <VenueActionButtons venueId={venue.id} />
           </div>
 
           {/* Resumo rápido */}
@@ -170,9 +175,41 @@ export default async function VenueDetailPage({
               {venue.neighborhood}, {venue.city} — o endereço completo é
               compartilhado durante a negociação, após o primeiro contato.
             </p>
-            <div className="mt-4 flex h-56 items-center justify-center rounded-2xl bg-gray-light text-sm text-gray-medium">
-              Mapa aproximado da região
+            <div className="mt-4">
+              <AreaPreview neighborhood={venue.neighborhood} city={venue.city} />
             </div>
+          </section>
+
+          <hr className="my-9 border-border/70" />
+
+          {/* Custos adicionais — estrutura preparada, sem inventar valores
+              que ainda não existem no cadastro do local (item 17 do prompt). */}
+          <section>
+            <h2 className="flex items-center gap-2 text-lg font-semibold text-ink">
+              <Wallet className="h-5 w-5 text-primary" aria-hidden />
+              Custos adicionais
+            </h2>
+            <p className="mt-3 text-sm text-gray-medium">
+              Itens como caução, taxa de limpeza, hora extra ou serviços
+              opcionais variam de acordo com cada local e serão informados
+              diretamente pelo responsável durante o contato.
+            </p>
+          </section>
+
+          <hr className="my-9 border-border/70" />
+
+          {/* Sobre o proprietário — sem inventar nome ou biografia por local
+              demonstrativo; a apresentação real acontece após o contato. */}
+          <section>
+            <h2 className="flex items-center gap-2 text-lg font-semibold text-ink">
+              <UserRound className="h-5 w-5 text-primary" aria-hidden />
+              Sobre o proprietário
+            </h2>
+            <p className="mt-3 text-sm text-gray-medium">
+              O responsável por este local recebe as solicitações diretamente
+              pela Festei e poderá se apresentar e confirmar as condições ao
+              entrar em contato com você.
+            </p>
           </section>
 
           <hr className="my-9 border-border/70" />
@@ -194,7 +231,7 @@ export default async function VenueDetailPage({
             dominante do painel (diferente do card lateral do Airbnb). */}
         <div>
           <div className="rounded-2xl border border-border bg-white p-6 shadow-[var(--shadow-lg)] md:sticky md:top-24">
-            <AvailabilityForm venueId={venue.id} venueName={venue.name} />
+            <AvailabilityForm venueId={venue.id} venueName={venue.name} venueSlug={venue.slug} />
             <hr className="my-5 border-border/70" />
             <div className="flex items-center justify-between text-sm">
               <span className="text-gray-medium">Valor de referência</span>

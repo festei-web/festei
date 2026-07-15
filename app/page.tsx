@@ -1,6 +1,8 @@
 import { Hero } from "@/components/marketing/hero";
+import { ProblemSection } from "@/components/marketing/problem-section";
 import { CategoriesSection } from "@/components/marketing/categories-section";
 import { HowItWorks } from "@/components/marketing/how-it-works";
+import { TrustSection } from "@/components/marketing/trust-section";
 import { BenefitsSection } from "@/components/marketing/benefits-section";
 import { OwnerSection } from "@/components/marketing/owner-section";
 import { FaqAccordion } from "@/components/marketing/faq-accordion";
@@ -17,6 +19,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <ProblemSection />
       <CategoriesSection />
 
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-28 lg:px-10">
@@ -51,6 +54,7 @@ export default function HomePage() {
       </section>
 
       <HowItWorks />
+      <TrustSection />
       <BenefitsSection />
       <OwnerSection />
       <FaqAccordion />

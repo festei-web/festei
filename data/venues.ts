@@ -10,7 +10,7 @@ export const venues: Venue[] = [
     name: "Casa Jardim do Recreio",
     shortDescription: "Casa ampla com piscina e área gourmet, a poucos minutos da praia.",
     fullDescription:
-      "Uma casa locaisa com quintal arborizado, ideal para aniversários e confraternizações em família. A piscina grande e a área gourmet coberta garantem conforto mesmo em dias quentes ou chuvosos. Cozinha totalmente equipada para facilitar o serviço de buffet ou catering. Estacionamento privativo para até 8 carros.",
+      "Uma casa aconchegante com quintal arborizado, ideal para aniversários e confraternizações em família. A piscina grande e a área gourmet coberta garantem conforto mesmo em dias quentes ou chuvosos. Cozinha totalmente equipada para facilitar o serviço de buffet ou catering. Estacionamento privativo para até 8 carros.",
     neighborhood: "Recreio dos Bandeirantes",
     city: "Rio de Janeiro",
     category: "casa-piscina",
@@ -29,6 +29,7 @@ export const venues: Venue[] = [
       "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?w=1200&q=80",
     ],
     featured: true,
+    verified: true,
     demoAvailability: "disponivel",
   },
   {
@@ -46,7 +47,7 @@ export const venues: Venue[] = [
     capacityMax: 200,
     startingPrice: 2400,
     amenityIds: ["churrasqueira", "estacionamento", "jardim", "area-coberta", "gerador"],
-    rules: ["Horário de funcionamento até 23h", "Proibido uso de fogos de artifício", "Limpeza inclusa na diária"],
+    rules: ["Horário de funcionamento até 23h", "Proibido uso de fogos de artifício", "Limpeza inclusa na locação"],
     images: [
       "https://images.unsplash.com/photo-1500076656116-558758c991c1?w=1200&q=80",
       "https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=1200&q=80",
@@ -56,6 +57,7 @@ export const venues: Venue[] = [
       "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=1200&q=80",
     ],
     featured: true,
+    verified: true,
     demoAvailability: "poucas-datas",
   },
   {
@@ -83,6 +85,7 @@ export const venues: Venue[] = [
       "https://images.unsplash.com/photo-1560184611-33bcbeeaacba?w=1200&q=80",
     ],
     featured: true,
+    verified: false,
     demoAvailability: "disponivel",
   },
   {
@@ -110,6 +113,7 @@ export const venues: Venue[] = [
       "https://images.unsplash.com/photo-1550005809-91ad75fb315f?w=1200&q=80",
     ],
     featured: false,
+    verified: true,
     demoAvailability: "disponivel",
   },
   {
@@ -137,6 +141,7 @@ export const venues: Venue[] = [
       "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&q=80",
     ],
     featured: false,
+    verified: false,
     demoAvailability: "sob-consulta",
   },
   {
@@ -164,6 +169,7 @@ export const venues: Venue[] = [
       "https://images.unsplash.com/photo-1517840901100-8179e982acb7?w=1200&q=80",
     ],
     featured: true,
+    verified: true,
     demoAvailability: "poucas-datas",
   },
   {
@@ -191,6 +197,7 @@ export const venues: Venue[] = [
       "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1200&q=80",
     ],
     featured: false,
+    verified: false,
     demoAvailability: "disponivel",
   },
   {
@@ -218,6 +225,7 @@ export const venues: Venue[] = [
       "https://images.unsplash.com/photo-1601758228041-3caa4f39e3e8?w=1200&q=80",
     ],
     featured: false,
+    verified: true,
     demoAvailability: "disponivel",
   },
   {
@@ -245,13 +253,14 @@ export const venues: Venue[] = [
       "https://images.unsplash.com/photo-1613545325278-f24b0cae1224?w=1200&q=80",
     ],
     featured: true,
+    verified: true,
     demoAvailability: "poucas-datas",
   },
   {
     id: "10",
     slug: "salao-festas-meier",
     name: "Salão de Festas Méier",
-    shortDescription: "Salão locaiso e bem localizado, com ótimo custo-benefício.",
+    shortDescription: "Salão amplo e bem localizado, com ótimo custo-benefício.",
     fullDescription:
       "Salão amplo no Méier, com pé-direito alto, boa ventilação natural e fácil acesso pela Linha 2 do metrô e principais avenidas da Zona Norte. Excelente opção para quem busca um local funcional, com bom custo-benefício, sem abrir mão de conforto e estrutura.",
     neighborhood: "Méier",
@@ -272,6 +281,7 @@ export const venues: Venue[] = [
       "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=1200&q=80",
     ],
     featured: false,
+    verified: false,
     demoAvailability: "disponivel",
   },
   {
@@ -299,6 +309,7 @@ export const venues: Venue[] = [
       "https://images.unsplash.com/photo-1470770903676-69b98201ea1c?w=1200&q=80",
     ],
     featured: false,
+    verified: true,
     demoAvailability: "disponivel",
   },
   {
@@ -326,6 +337,7 @@ export const venues: Venue[] = [
       "https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=1200&q=80",
     ],
     featured: false,
+    verified: false,
     demoAvailability: "sob-consulta",
   },
 ];

@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { categories } from "@/data/categories";
 import { amenities } from "@/data/amenities";
+import { eventTypeLabels } from "@/data/constants";
 import { resolveIcon } from "@/lib/icon-map";
 import type { VenueFilters } from "@/lib/filters";
 import { cn } from "@/lib/utils";
@@ -55,21 +56,38 @@ export function FilterFields({
 
       <div className="grid gap-4 sm:grid-cols-2">
         <Select
-          label="Capacidade mínima"
-          value={filters.minCapacity ?? ""}
+          label="Tipo de evento"
+          value={filters.eventType}
+          onChange={(e) =>
+            onChange({ ...filters, eventType: e.target.value as VenueFilters["eventType"] })
+          }
+        >
+          <option value="">Qualquer tipo de evento</option>
+          {Object.entries(eventTypeLabels).map(([key, label]) => (
+            <option key={key} value={key}>
+              {label}
+            </option>
+          ))}
+        </Select>
+        <Select
+          label="Quantidade de convidados"
+          value={filters.guestCount ?? ""}
           onChange={(e) =>
             onChange({
               ...filters,
-              minCapacity: e.target.value ? Number(e.target.value) : null,
+              guestCount: e.target.value ? Number(e.target.value) : null,
             })
           }
         >
-          <option value="">Qualquer capacidade</option>
+          <option value="">Qualquer quantidade</option>
           <option value="20">A partir de 20 convidados</option>
           <option value="50">A partir de 50 convidados</option>
           <option value="100">A partir de 100 convidados</option>
           <option value="200">A partir de 200 convidados</option>
         </Select>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2">
         <Select
           label="Faixa de preço máxima"
           value={filters.maxPrice ?? ""}

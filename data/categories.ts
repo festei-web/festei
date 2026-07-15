@@ -27,7 +27,7 @@ export const categories: Category[] = [
   },
   {
     id: "espaco-gourmet",
-    label: "Locais Gourmet",
+    label: "Áreas gourmet",
     image:
       "https://images.unsplash.com/photo-1544148103-0773bf10d330?w=800&q=80",
   },

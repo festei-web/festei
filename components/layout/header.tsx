@@ -8,10 +8,9 @@ import { Logo } from "./logo";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { href: "/locais", label: "Explorar" },
+  { href: "/locais", label: "Encontrar locais" },
   { href: "/#como-funciona", label: "Como funciona" },
-  { href: "/anunciar", label: "Proprietários" },
-  { href: "/#faq", label: "FAQ" },
+  { href: "/anunciar", label: "Para proprietários" },
 ];
 
 export function Header() {
@@ -60,10 +59,10 @@ export function Header() {
 
         <div className="hidden items-center gap-3 md:flex">
           <Button asChild variant="secondary" size="sm">
-            <Link href="/anunciar">Anunciar Local</Link>
+            <Link href="/anunciar">Anunciar meu local</Link>
           </Button>
           <Button asChild size="sm">
-            <Link href="/locais">Encontrar Locais</Link>
+            <Link href="/locais">Encontrar um local</Link>
           </Button>
         </div>
 
@@ -93,10 +92,10 @@ export function Header() {
           </nav>
           <div className="mt-4 flex flex-col gap-2">
             <Button asChild variant="secondary" fullWidth onClick={closeMobileMenu}>
-              <Link href="/anunciar">Anunciar Local</Link>
+              <Link href="/anunciar">Anunciar meu local</Link>
             </Button>
             <Button asChild fullWidth onClick={closeMobileMenu}>
-              <Link href="/locais">Encontrar Locais</Link>
+              <Link href="/locais">Encontrar um local</Link>
             </Button>
           </div>
         </div>

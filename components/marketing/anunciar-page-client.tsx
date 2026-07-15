@@ -1,30 +1,30 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { TrendingUp, Users, Camera, ShieldCheck } from "lucide-react";
+import { TrendingUp, FileEdit, Camera, ClipboardCheck } from "lucide-react";
 import { OwnerLeadForm } from "@/components/marketplace/owner-lead-form";
 import { Breadcrumb } from "@/components/marketplace/breadcrumb";
 
 const benefits = [
   {
-    icon: Users,
-    title: "Novos clientes qualificados",
-    text: "Pessoas que já estão procurando exatamente o tipo de local que você tem.",
+    icon: TrendingUp,
+    title: "Solicitações mais completas",
+    text: "Receba pedidos com data, tipo de evento, horário e quantidade de convidados já detalhados.",
   },
   {
-    icon: TrendingUp,
-    title: "Mais visibilidade",
-    text: "Apareça para quem pesquisa por região, tipo de evento e capacidade.",
+    icon: ClipboardCheck,
+    title: "Alcance fora do Instagram",
+    text: "Apareça para pessoas que já estão planejando um evento e pesquisando por região, tipo e capacidade.",
   },
   {
     icon: Camera,
-    title: "Apresentação profissional",
-    text: "Fotos e informações organizadas, sem depender só do Instagram.",
+    title: "Página profissional do local",
+    text: "Fotos e informações organizadas em uma página só sua, com apresentação profissional.",
   },
   {
-    icon: ShieldCheck,
-    title: "Sem mensalidade na primeira fase",
-    text: "Cadastro gratuito. Comissão apenas sobre reservas concluídas.",
+    icon: FileEdit,
+    title: "Autonomia total",
+    text: "Aceite ou recuse cada solicitação e defina diretamente suas próprias regras e condições.",
   },
 ];
 
@@ -39,12 +39,12 @@ export function AnunciarPageClient() {
 
       <div className="mx-auto max-w-2xl text-center">
         <h1 className="text-3xl font-bold text-ink sm:text-4xl">
-          Seu local pode receber muito mais eventos
+          Transforme datas disponíveis em novas oportunidades
         </h1>
         <p className="mt-4 text-gray-medium">
-          Cadastre seu local na Festei e aumente sua visibilidade para
-          pessoas que estão procurando exatamente o tipo de ambiente que você
-          oferece.
+          Mostre seu local para pessoas que já estão planejando uma festa e
+          receba solicitações com data, tipo de evento, horário e quantidade
+          de convidados.
         </p>
       </div>
 
@@ -62,7 +62,12 @@ export function AnunciarPageClient() {
         ))}
       </div>
 
-      <div className="mt-14 rounded-2xl border border-border bg-white p-6 sm:p-8">
+      <p className="mt-8 text-center text-sm text-gray-medium">
+        Condições especiais para os primeiros proprietários parceiros —
+        cadastre-se para conhecer as condições da fase inicial da Festei.
+      </p>
+
+      <div className="mt-8 rounded-2xl border border-border bg-white p-6 sm:p-8">
         <OwnerLeadForm initialMode={initialMode} />
       </div>
     </div>

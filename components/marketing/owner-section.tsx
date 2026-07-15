@@ -4,10 +4,10 @@ import { OwnerDualCTA } from "./owner-dual-cta";
 import { Reveal } from "@/components/ui/reveal";
 
 const benefits = [
-  "Mais divulgação",
-  "Mais oportunidades",
-  "Cadastro simples",
-  "Plataforma moderna",
+  "Solicitações mais completas",
+  "Alcance fora do Instagram",
+  "Página profissional do local",
+  "Autonomia para aceitar ou recusar",
 ];
 
 export function OwnerSection() {
@@ -19,12 +19,12 @@ export function OwnerSection() {
             Para proprietários
           </span>
           <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">
-            Seu local pode receber muito mais eventos
+            Transforme datas disponíveis em novas oportunidades
           </h2>
           <p className="mt-4 max-w-lg text-white/70">
-            Cadastre seu local na Festei e aumente sua visibilidade para
-            pessoas que estão procurando exatamente o tipo de ambiente que
-            você oferece.
+            Mostre seu local para pessoas que já estão planejando uma festa e
+            receba solicitações com data, tipo de evento, horário e
+            quantidade de convidados.
           </p>
 
           <ul className="mt-7 grid grid-cols-2 gap-3">

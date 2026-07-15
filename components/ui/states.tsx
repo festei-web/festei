@@ -1,11 +1,12 @@
 import * as React from "react";
+import Link from "next/link";
 import { SearchX, CheckCircle2, WifiOff } from "lucide-react";
 import { Button } from "./button";
 
 export function EmptyState({
-  title = "Não encontramos locais com esses critérios.",
-  description = "Tente ampliar a região, reduzir alguns filtros ou aumentar o orçamento.",
-  actionLabel = "Limpar filtros",
+  title = "Nenhum local atende a todos os filtros selecionados.",
+  description = "Tente aumentar a região de busca, ajustar a quantidade de convidados ou remover algum filtro.",
+  actionLabel = "Ajustar filtros",
   onAction,
 }: {
   title?: string;
@@ -20,11 +21,16 @@ export function EmptyState({
       </div>
       <h3 className="text-lg font-semibold text-ink">{title}</h3>
       <p className="mt-2 max-w-sm text-sm text-gray-medium">{description}</p>
-      {onAction && (
-        <Button variant="secondary" size="sm" className="mt-6" onClick={onAction}>
-          {actionLabel}
+      <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+        {onAction && (
+          <Button variant="secondary" size="sm" onClick={onAction}>
+            {actionLabel}
+          </Button>
+        )}
+        <Button asChild size="sm">
+          <Link href="/locais">Ver todos os locais</Link>
         </Button>
-      )}
+      </div>
     </div>
   );
 }

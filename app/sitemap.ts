@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
 import { venues } from "@/data/venues";
+import { SITE_URL } from "@/lib/site";
 
-const BASE_URL = "https://festei.com.br";
+const BASE_URL = SITE_URL;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [

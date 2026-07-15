@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import { FileEdit, PhoneCall } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { track } from "@/lib/analytics";
 
 /**
  * Exceção documentada à regra de "um único CTA por seção" (Design System,
@@ -21,13 +24,19 @@ export function OwnerDualCTA({ stacked = false }: { stacked?: boolean }) {
       }
     >
       <Button asChild size="lg" variant="primary" className="flex-1">
-        <Link href="/anunciar?modo=cadastro">
+        <Link
+          href="/anunciar?modo=cadastro"
+          onClick={() => track("owner_cta_clicked", { mode: "cadastro" })}
+        >
           <FileEdit className="h-4 w-4" aria-hidden />
           Cadastrar meu local
         </Link>
       </Button>
       <Button asChild size="lg" variant="primary" className="flex-1">
-        <Link href="/anunciar?modo=ligacao">
+        <Link
+          href="/anunciar?modo=ligacao"
+          onClick={() => track("owner_cta_clicked", { mode: "ligacao" })}
+        >
           <PhoneCall className="h-4 w-4" aria-hidden />
           Prefiro que me liguem
         </Link>

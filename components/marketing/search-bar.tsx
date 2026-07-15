@@ -4,6 +4,7 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { PartyPopper, MapPin, Users, ArrowRight } from "lucide-react";
 import { eventTypeLabels } from "@/data/constants";
+import { track } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 
 /**
@@ -25,6 +26,7 @@ export function SearchBar() {
     if (location) params.set("local", location);
     if (eventType) params.set("evento", eventType);
     if (guests) params.set("convidados", guests);
+    track("hero_search_submitted", { location, eventType, guests });
     router.push(`/locais?${params.toString()}`);
   }
 

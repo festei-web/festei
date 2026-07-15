@@ -26,12 +26,17 @@ export function Hero() {
         </span>
 
         <h1 className="max-w-3xl text-[42px] font-bold leading-[1.05] tracking-[-0.02em] text-ink sm:text-6xl md:text-[68px]">
-          Onde a sua próxima celebração vai acontecer
+          Encontre o local certo para a sua festa
         </h1>
 
         <p className="mt-6 max-w-xl text-base text-gray-medium sm:text-lg">
-          Casas, sítios, salões e locais para festas em um só lugar.
-          Encontre o cenário certo para o seu momento especial.
+          Compare casas, sítios, salões, chácaras e outros locais para eventos
+          no Rio de Janeiro. Consulte estrutura, capacidade, valores e
+          disponibilidade em um só lugar.
+        </p>
+
+        <p className="mt-2 text-sm font-medium text-ink/60">
+          Planeje melhor. Compare antes. Fale diretamente com o responsável.
         </p>
 
         <div className="mt-10 w-full max-w-2xl">
