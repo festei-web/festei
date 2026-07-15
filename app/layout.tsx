@@ -3,6 +3,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { ToastProvider } from "@/components/ui/toast";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: {
@@ -11,10 +12,11 @@ export const metadata: Metadata = {
   },
   description:
     "A Festei conecta pessoas a locais para festas e eventos no Rio de Janeiro: casas, sítios, salões, chácaras e rooftops em um só lugar.",
-  metadataBase: new URL("https://festei.com.br"),
+  metadataBase: new URL(SITE_URL),
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
+    url: SITE_URL,
     locale: "pt_BR",
     siteName: "Festei",
     title: "Festei — Encontre o local perfeito para o seu evento",
@@ -34,7 +36,7 @@ const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "Festei",
-  url: "https://festei.com.br",
+  url: SITE_URL,
   description:
     "Plataforma que conecta pessoas a locais para eventos no Rio de Janeiro.",
 };
