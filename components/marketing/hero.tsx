@@ -1,5 +1,9 @@
+"use client";
+
+import Link from "next/link";
 import { SafeImage } from "@/components/ui/safe-image";
 import { SearchBar } from "./search-bar";
+import { track } from "@/lib/analytics";
 
 export function Hero() {
   return (
@@ -32,11 +36,22 @@ export function Hero() {
 
         <p className="mt-6 max-w-xl text-base text-white/90 [text-shadow:0_1px_12px_rgba(0,0,0,0.45)] sm:text-lg">
           Compare casas, sítios, salões, chácaras e outros locais para a sua
-          festa. Consulte estrutura, capacidade e valores em um só lugar.
+          festa no Rio de Janeiro.
         </p>
 
         <div className="mt-10 w-full max-w-3xl">
           <SearchBar />
+        </div>
+
+        <div className="mt-6 flex flex-col items-center gap-2 sm:flex-row sm:gap-4">
+          <span className="text-sm text-white/80">Tem um local para festas?</span>
+          <Link
+            href="/anunciar"
+            onClick={() => track("owner_cta_clicked", { mode: "hero" })}
+            className="inline-flex items-center gap-1.5 rounded-full border border-white/40 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur transition-colors hover:bg-white/20"
+          >
+            Anunciar meu local
+          </Link>
         </div>
       </div>
     </section>

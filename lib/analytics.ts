@@ -6,17 +6,33 @@
  * sem alterar nenhum ponto de chamada (prompt de melhorias, item 29).
  */
 export type AnalyticsEvent =
+  // Clientes
   | "hero_search_submitted"
+  | "search_started"
+  | "search_submitted"
   | "category_selected"
   | "filters_applied"
   | "location_card_viewed"
   | "location_details_opened"
+  | "venue_opened"
   | "favorite_added"
   | "favorite_removed"
   | "availability_request_started"
   | "availability_request_submitted"
+  | "availability_form_started"
+  | "availability_submitted"
+  | "availability_success"
+  | "availability_error"
+  // Proprietários
+  | "owner_section_viewed"
   | "owner_cta_clicked"
-  | "owner_form_submitted";
+  | "owner_form_started"
+  | "owner_form_field_error"
+  | "owner_form_submitted"
+  | "owner_form_success"
+  | "owner_form_error"
+  | "owner_whatsapp_clicked"
+  | "owner_faq_opened";
 
 export function track(event: AnalyticsEvent, payload?: Record<string, unknown>) {
   if (process.env.NODE_ENV !== "production") {

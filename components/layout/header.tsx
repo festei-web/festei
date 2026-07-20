@@ -4,7 +4,14 @@ import * as React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Logo } from "./logo";
+import { MobileMenu } from "./mobile-menu";
 import { cn } from "@/lib/utils";
+
+const navLinks = [
+  { href: "/locais", label: "Encontrar locais" },
+  { href: "/#como-funciona", label: "Como funciona" },
+  { href: "/anunciar", label: "Para proprietários" },
+];
 
 export function Header() {
   const [scrolled, setScrolled] = React.useState(false);
@@ -35,9 +42,25 @@ export function Header() {
           <Logo />
         </Link>
 
-        <Button asChild size="sm">
-          <Link href="/anunciar">Anunciar meu local</Link>
-        </Button>
+        <nav aria-label="Navegação principal" className="hidden items-center gap-8 md:flex">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-sm font-medium text-ink/80 transition-colors hover:text-primary"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="hidden md:block">
+          <Button asChild size="sm">
+            <Link href="/anunciar">Anunciar meu local</Link>
+          </Button>
+        </div>
+
+        <MobileMenu />
       </div>
     </header>
   );

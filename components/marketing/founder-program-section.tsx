@@ -1,66 +1,84 @@
-import { Sparkles, Users, MessageSquare } from "lucide-react";
+import { Sparkles, Users, MessageSquare, Star } from "lucide-react";
 import { OwnerCTA } from "./owner-cta";
 import { Reveal } from "@/components/ui/reveal";
 
 const benefits = [
   {
-    icon: Sparkles,
-    text: "Um dos primeiros locais visíveis na plataforma",
+    icon: Users,
+    text: "Acompanhamento mais próximo da nossa equipe",
   },
   {
-    icon: Users,
-    text: "Cadastro com apoio direto da nossa equipe",
+    icon: Sparkles,
+    text: "Orientação para organizar as informações do anúncio",
   },
   {
     icon: MessageSquare,
-    text: "Espaço pra dar feedback e ajudar a moldar a experiência",
+    text: "Espaço para enviar feedback sobre a plataforma",
+  },
+  {
+    icon: Star,
+    text: "Prioridade na análise inicial dos cadastros",
   },
 ];
 
 /**
- * Bloco de recrutamento de proprietários, posicionado cedo na home
- * (substituiu "Locais em destaque") — foco em urgência/exclusividade de
- * fase inicial (Onda 0), diferente da OwnerSection mais abaixo, que foca
- * nos benefícios contínuos de usar a plataforma. As duas coexistem de
- * propósito: esta é o gancho pra quem já pode agir sem rolar a página
- * inteira; a de baixo é a versão completa, com lista de benefícios do dia
- * a dia.
+ * Bloco do programa de proprietários fundadores.
+ *
+ * IMPORTANTE (prompt de melhorias, item 12 e item 32): esta seção NUNCA
+ * deve prometer visibilidade/audiência ("mais visibilidade numa
+ * plataforma com poucos concorrentes"), gratuidade permanente, ausência
+ * de comissão, destaque vitalício, exclusividade ou garantia de demanda
+ * / publicação. Os benefícios listados abaixo são deliberadamente
+ * limitados a coisas que a Festei já pode cumprir nesta fase.
  */
 export function FounderProgramSection() {
   return (
-    <section className="bg-primary-light/40 py-20 md:py-28">
-      <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-10">
+    <section className="relative overflow-hidden bg-primary-light/40 py-20 md:py-28">
+      {/* Confete minimalista discreto — decorativo, desativado com
+          prefers-reduced-motion (ver globals.css) */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+        <span className="absolute left-[8%] top-10 h-2 w-2 rounded-full bg-coral/70" />
+        <span className="absolute right-[12%] top-24 h-1.5 w-1.5 rounded-full bg-coral/50" />
+        <span className="absolute left-[20%] bottom-16 h-2 w-2 rotate-45 bg-coral/40" />
+        <span className="absolute right-[22%] bottom-10 h-1.5 w-1.5 rounded-full bg-primary/30" />
+      </div>
+
+      <div className="relative mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-10">
         <Reveal>
-          <span className="text-sm font-semibold uppercase tracking-wide text-primary">
-            Programa de parceiros fundadores
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-coral-border bg-coral-soft px-3 py-1 text-xs font-semibold uppercase tracking-wide text-coral-hover">
+            Parceiros fundadores
           </span>
-          <h2 className="mt-2 text-3xl font-bold tracking-tight text-ink md:text-4xl">
-            Estamos selecionando os primeiros locais da Festei
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-ink md:text-4xl">
+            Faça parte do catálogo inicial da Festei
           </h2>
           <p className="mt-4 text-base text-gray-medium sm:text-lg">
-            A Festei está começando pelo Rio de Janeiro, e os primeiros
-            locais cadastrados vão sair na frente: mais visibilidade numa
-            plataforma com poucos concorrentes ainda, e atendimento próximo
-            da nossa equipe pra te ajudar a montar um perfil completo desde
-            o início.
+            A Festei está formando sua primeira seleção de locais para
+            festas no Rio de Janeiro. Os proprietários escolhidos nesta
+            fase poderão acompanhar mais de perto a criação dos anúncios e
+            contribuir com sugestões para o desenvolvimento da plataforma.
           </p>
         </Reveal>
 
-        <Reveal delay={100} className="mt-10 grid gap-4 text-left sm:grid-cols-3">
+        <Reveal delay={100} className="mt-10 grid gap-4 text-left sm:grid-cols-2">
           {benefits.map((b) => (
             <div
               key={b.text}
-              className="flex flex-col items-start gap-3 rounded-2xl border border-border bg-white p-5"
+              className="flex items-start gap-3 rounded-2xl border border-border bg-white p-5"
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-light text-primary">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-light text-primary">
                 <b.icon className="h-5 w-5" aria-hidden />
               </div>
-              <p className="text-sm font-medium text-ink">{b.text}</p>
+              <p className="pt-1.5 text-sm font-medium text-ink">{b.text}</p>
             </div>
           ))}
         </Reveal>
 
-        <Reveal delay={180} className="mx-auto mt-10 max-w-md">
+        <Reveal delay={160} className="mx-auto mt-8 max-w-xl rounded-xl border border-border bg-white/70 p-4 text-sm text-gray-medium">
+          As condições da fase inicial serão apresentadas individualmente
+          antes da publicação do local.
+        </Reveal>
+
+        <Reveal delay={220} className="mx-auto mt-8 max-w-md">
           <OwnerCTA fullWidth />
         </Reveal>
       </div>

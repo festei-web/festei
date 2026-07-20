@@ -20,6 +20,22 @@
   --color-error: #ef4444;
   --color-info: #3b82f6;
 
+  /* Coral — cor complementar da marca (Brand Book, pilares "Acolhimento" e
+     "Modernidade"). O roxo (--color-primary) permanece a cor dominante;
+     o coral é usado apenas em detalhes: selos, marcadores, ícones de
+     etapas, bordas de destaque e pequenos elementos de celebração.
+     NUNCA usar em CTAs principais, fundos grandes ou mensagens de erro.
+     VALOR PROVISÓRIO: nenhum hex oficial de coral foi encontrado nos
+     documentos de marca do projeto (Brand Book / Design System registram
+     o coral como removido da paleta oficial). Este valor deve ser
+     confirmado por Rafael antes da publicação; até lá, está centralizado
+     apenas aqui para facilitar a troca. */
+  --color-coral: #ff6f59;
+  --color-coral-hover: #f0563f;
+  --color-coral-soft: #fff1ee;
+  --color-coral-border: #ffc9bd;
+  --color-coral-foreground: #ffffff;
+
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;
@@ -53,6 +69,12 @@
   --color-warning: var(--color-warning);
   --color-error: var(--color-error);
   --color-info: var(--color-info);
+
+  --color-coral: var(--color-coral);
+  --color-coral-hover: var(--color-coral-hover);
+  --color-coral-soft: var(--color-coral-soft);
+  --color-coral-border: var(--color-coral-border);
+  --color-coral-foreground: var(--color-coral-foreground);
 
   --radius-sm: var(--radius-sm);
   --radius-md: var(--radius-md);

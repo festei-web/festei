@@ -1,4 +1,5 @@
 import type { FaqItem } from "@/types";
+import { OWNER_RESPONSE_TIME_PLACEHOLDER } from "@/lib/site";
 
 export const faq: FaqItem[] = [
   // Para quem procura um local
@@ -53,48 +54,54 @@ export const faq: FaqItem[] = [
   // Para proprietários
   {
     group: "proprietarios",
-    question: "Como anuncio meu local?",
+    question: "O cadastro garante que meu local será publicado?",
     answer:
-      "Você se cadastra diretamente pela plataforma, preenchendo as informações do seu local. É rápido e sem burocracia.",
+      "Não. A equipe da Festei analisará as informações antes de confirmar a participação no catálogo inicial.",
   },
   {
     group: "proprietarios",
-    question: "Posso editar as informações depois?",
-    answer: "Sim. As informações do seu local podem ser atualizadas sempre que precisar.",
-  },
-  {
-    group: "proprietarios",
-    question: "Sou obrigado a aceitar uma solicitação?",
+    question: "Quem define o valor do local?",
     answer:
-      "Não. Você tem total autonomia para aceitar ou recusar cada solicitação recebida, de acordo com sua disponibilidade e critérios.",
+      "O responsável pelo local informa os valores e as condições. A Festei organiza essas informações para apresentá-las aos interessados.",
   },
   {
     group: "proprietarios",
-    question: "Como recebo os contatos?",
+    question: "Sou obrigado a aceitar todas as festas?",
     answer:
-      "As solicitações chegam até você através da nossa equipe, com os dados do evento (tipo, data, horário, convidados) já organizados.",
+      "Não. O responsável mantém a liberdade para analisar cada solicitação e decidir se deseja aceitá-la.",
   },
   {
     group: "proprietarios",
-    question: "Quais documentos poderão ser solicitados?",
+    question: "Posso bloquear datas?",
     answer:
-      "Para confirmar a identidade do responsável e a existência do local, poderemos solicitar documentos básicos de identificação durante o cadastro.",
+      "Sim. A disponibilidade será informada pelo responsável pelo local. A forma de atualização poderá evoluir conforme o desenvolvimento da plataforma.",
   },
   {
     group: "proprietarios",
-    question: "Como funcionam as condições comerciais?",
+    question: "Preciso enviar documentos no primeiro cadastro?",
     answer:
-      "Estamos na fase inicial da Festei e oferecemos condições especiais para os primeiros proprietários parceiros. Cadastre-se para conhecer as condições vigentes.",
+      "Não. O formulário inicial serve para conhecermos o local. Caso ele avance na análise, a equipe informará os documentos e dados complementares necessários.",
   },
   {
     group: "proprietarios",
-    question: "Posso remover meu anúncio?",
-    answer: "Sim. Você pode solicitar a remoção do seu anúncio a qualquer momento.",
-  },
-  {
-    group: "proprietarios",
-    question: "Quem define o preço e as regras?",
+    question: "Preciso ter fotos profissionais?",
     answer:
-      "Você. O responsável pelo local define diretamente o valor inicial, as regras de uso e as condições de locação.",
+      "Não necessariamente. A equipe avaliará as imagens disponíveis e poderá orientar sobre como apresentar melhor o local.",
+  },
+  {
+    group: "proprietarios",
+    question: "Existe alguma taxa?",
+    answer:
+      "As condições comerciais serão explicadas antes da publicação do local, de forma individual.",
+  },
+  {
+    group: "proprietarios",
+    question: "O cadastro é automático?",
+    answer: "Não. Cada local passa por uma análise inicial antes de ser aprovado.",
+  },
+  {
+    group: "proprietarios",
+    question: "Em quanto tempo receberei retorno?",
+    answer: `Nossa equipe entra em contato ${OWNER_RESPONSE_TIME_PLACEHOLDER}.`,
   },
 ];

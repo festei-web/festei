@@ -12,29 +12,27 @@ export function CtaSection() {
             aria-hidden
           />
           <h2 className="relative mx-auto max-w-xl text-3xl font-bold tracking-tight md:text-5xl">
-            Encontre o local certo — ou anuncie o seu
+            Tem um local adequado para festas?
           </h2>
           <p className="relative mx-auto mt-4 max-w-md text-white/80">
-            Seja você quem procura o lugar perfeito para uma festa ou tem um
-            espaço para oferecer, a Festei ajuda a dar o próximo passo.
+            Envie as informações iniciais e participe da seleção dos
+            primeiros locais da Festei no Rio de Janeiro.
           </p>
-          <div className="relative mx-auto mt-9 flex max-w-md flex-col gap-3 sm:flex-row">
+          <div className="relative mx-auto mt-9 flex max-w-md flex-col items-center gap-4">
             <Button
               asChild
               size="xl"
               variant="secondary"
-              className="flex-1 bg-white shadow-[var(--shadow-lg)] hover:bg-white/90"
+              className="w-full bg-white shadow-[var(--shadow-lg)] hover:bg-white/90"
             >
-              <Link href="/locais">Encontrar local</Link>
+              <Link href="/anunciar#formulario">Enviar meu local para análise</Link>
             </Button>
-            <Button
-              asChild
-              size="xl"
-              variant="secondary"
-              className="flex-1 bg-white shadow-[var(--shadow-lg)] hover:bg-white/90"
+            <Link
+              href="/locais"
+              className="text-sm font-medium text-white/80 underline underline-offset-4 hover:text-white"
             >
-              <Link href="/anunciar">Anunciar meu local</Link>
-            </Button>
+              Encontrar locais para festas
+            </Link>
           </div>
         </div>
       </Reveal>
