@@ -122,6 +122,23 @@ body {
   --shadow-primary: 0 8px 24px rgba(109, 74, 255, 0.25);
 }
 
+/* Painel flutuante de selects customizados (EventTypeSelect e afins) —
+   animação curta e discreta ao abrir. A regra global de
+   prefers-reduced-motion acima já zera a duração desta animação também. */
+@keyframes select-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.select-panel-enter {
+  animation: select-panel-in 120ms var(--ease-out);
+  transform-origin: top center;
+}
 /* Reveal-on-scroll — sem biblioteca, via IntersectionObserver (ver lib/reveal.ts).
    Estado inicial discreto; JS adiciona .is-visible quando entra na viewport. */
 .reveal {

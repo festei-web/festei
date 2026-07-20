@@ -1,8 +1,11 @@
 import type { EventType, Venue, VenueCategory } from "@/types";
+import { getNeighborhoodByLabel } from "@/data/rio-neighborhoods";
 
 // Filtros do MVP — consistentes com a lista fechada do PRD (Cap. 6, RF-036).
 export interface VenueFilters {
-  location: string;
+  // Slug de um bairro da lista oficial (data/rio-neighborhoods.ts), ou ""
+  // para "qualquer bairro". Nunca texto livre — ver NeighborhoodCombobox.
+  neighborhoodSlug: string;
   category: VenueCategory | "";
   eventType: EventType | "";
   guestCount: number | null;
@@ -11,7 +14,7 @@ export interface VenueFilters {
 }
 
 export const emptyFilters: VenueFilters = {
-  location: "",
+  neighborhoodSlug: "",
   category: "",
   eventType: "",
   guestCount: null,
@@ -21,13 +24,9 @@ export const emptyFilters: VenueFilters = {
 
 export function applyFilters(venues: Venue[], filters: VenueFilters): Venue[] {
   return venues.filter((venue) => {
-    if (
-      filters.location &&
-      !`${venue.neighborhood} ${venue.city}`
-        .toLowerCase()
-        .includes(filters.location.toLowerCase())
-    ) {
-      return false;
+    if (filters.neighborhoodSlug) {
+      const venueSlug = getNeighborhoodByLabel(venue.neighborhood)?.slug;
+      if (venueSlug !== filters.neighborhoodSlug) return false;
     }
     if (filters.category && venue.category !== filters.category) return false;
     if (filters.eventType && !venue.recommendedEvents.includes(filters.eventType)) return false;

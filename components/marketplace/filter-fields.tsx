@@ -1,12 +1,18 @@
-import { MapPin } from "lucide-react";
-import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
+import { EventTypeSelect } from "@/components/ui/event-type-select";
+import { NeighborhoodCombobox } from "@/components/ui/neighborhood-combobox";
 import { categories } from "@/data/categories";
 import { amenities } from "@/data/amenities";
 import { eventTypeLabels } from "@/data/constants";
+import { allNeighborhoods } from "@/data/rio-neighborhoods";
 import { resolveIcon } from "@/lib/icon-map";
 import type { VenueFilters } from "@/lib/filters";
 import { cn } from "@/lib/utils";
+
+const eventTypeFilterOptions = [
+  { value: "", label: "Qualquer tipo de festa" },
+  ...Object.entries(eventTypeLabels).map(([value, label]) => ({ value, label })),
+];
 
 // Comodidades de destaque no MVP (subconjunto do RF-036 do PRD).
 const featuredAmenityIds = ["piscina", "churrasqueira", "estacionamento", "area-coberta", "cozinha"];
@@ -31,12 +37,12 @@ export function FilterFields({
   return (
     <div className="flex flex-col gap-4">
       <div className="grid gap-4 sm:grid-cols-2">
-        <Input
-          label="Localização"
-          placeholder="Bairro ou região"
-          icon={<MapPin className="h-4 w-4" aria-hidden />}
-          value={filters.location}
-          onChange={(e) => onChange({ ...filters, location: e.target.value })}
+        <NeighborhoodCombobox
+          label="Região"
+          value={filters.neighborhoodSlug}
+          onChange={(slug) => onChange({ ...filters, neighborhoodSlug: slug })}
+          options={allNeighborhoods}
+          placeholder="Selecione um bairro"
         />
         <Select
           label="Tipo de local"
@@ -55,20 +61,15 @@ export function FilterFields({
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <Select
-          label="Tipo de evento"
+        <EventTypeSelect
+          label="Tipo de festa"
           value={filters.eventType}
-          onChange={(e) =>
-            onChange({ ...filters, eventType: e.target.value as VenueFilters["eventType"] })
+          onChange={(v) =>
+            onChange({ ...filters, eventType: v as VenueFilters["eventType"] })
           }
-        >
-          <option value="">Qualquer tipo de evento</option>
-          {Object.entries(eventTypeLabels).map(([key, label]) => (
-            <option key={key} value={key}>
-              {label}
-            </option>
-          ))}
-        </Select>
+          options={eventTypeFilterOptions}
+          placeholder="Selecione o tipo de festa"
+        />
         <Select
           label="Quantidade de convidados"
           value={filters.guestCount ?? ""}

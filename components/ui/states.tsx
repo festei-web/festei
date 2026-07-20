@@ -8,11 +8,13 @@ export function EmptyState({
   description = "Tente aumentar a região de busca, ajustar a quantidade de convidados ou remover algum filtro.",
   actionLabel = "Ajustar filtros",
   onAction,
+  extraLink,
 }: {
   title?: string;
   description?: string;
   actionLabel?: string;
   onAction?: () => void;
+  extraLink?: { href: string; label: string };
 }) {
   return (
     <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border bg-gray-light/50 px-6 py-16 text-center">
@@ -27,9 +29,15 @@ export function EmptyState({
             {actionLabel}
           </Button>
         )}
-        <Button asChild size="sm">
-          <Link href="/locais">Ver todos os locais</Link>
-        </Button>
+        {extraLink ? (
+          <Button asChild size="sm">
+            <Link href={extraLink.href}>{extraLink.label}</Link>
+          </Button>
+        ) : (
+          <Button asChild size="sm">
+            <Link href="/locais">Ver todos os locais</Link>
+          </Button>
+        )}
       </div>
     </div>
   );

@@ -12,6 +12,8 @@ import { Select } from "@/components/ui/select";
 import { eventTypeLabels } from "@/data/constants";
 import { categories } from "@/data/categories";
 import { amenities } from "@/data/amenities";
+import { getNeighborhoodBySlug, isValidNeighborhoodSlug } from "@/data/rio-neighborhoods";
+import { parseTrustedGuestCount } from "@/schemas/guest-count";
 import type { EventType } from "@/types";
 import {
   applyFilters,
@@ -34,8 +36,9 @@ function buildSummary(filters: VenueFilters, resultCount: number): string {
     text += ` para ${eventLabel.toLowerCase()}`;
   }
 
-  if (filters.location) {
-    text += ` em ${filters.location}`;
+  if (filters.neighborhoodSlug) {
+    const neighborhood = getNeighborhoodBySlug(filters.neighborhoodSlug);
+    text += ` em ${neighborhood?.label ?? filters.neighborhoodSlug}`;
   } else {
     text += " no Rio de Janeiro";
   }
@@ -58,11 +61,12 @@ function ActiveFilterChips({
 }) {
   const chips: { key: string; label: string; clear: () => void }[] = [];
 
-  if (filters.location) {
+  if (filters.neighborhoodSlug) {
+    const label = getNeighborhoodBySlug(filters.neighborhoodSlug)?.label ?? filters.neighborhoodSlug;
     chips.push({
-      key: "location",
-      label: filters.location,
-      clear: () => onChange({ ...filters, location: "" }),
+      key: "neighborhoodSlug",
+      label,
+      clear: () => onChange({ ...filters, neighborhoodSlug: "" }),
     });
   }
   if (filters.category) {
@@ -151,13 +155,17 @@ export function LocaisPageClient() {
   const searchParams = useSearchParams();
   const [loading, setLoading] = React.useState(true);
   const [filters, setFilters] = React.useState<VenueFilters>(() => {
-    const guestsParam = searchParams.get("convidados");
+    const bairroParam = searchParams.get("bairro") ?? "";
     return {
       ...emptyFilters,
-      location: searchParams.get("local") ?? "",
+      // Nunca confia em texto livre vindo da URL — só aceita slugs da
+      // lista oficial de bairros (data/rio-neighborhoods.ts).
+      neighborhoodSlug: isValidNeighborhoodSlug(bairroParam) ? bairroParam : "",
       category: (searchParams.get("categoria") as VenueFilters["category"]) ?? "",
       eventType: (searchParams.get("evento") as VenueFilters["eventType"]) ?? "",
-      guestCount: guestsParam ? Number(guestsParam) : null,
+      // Idem para convidados: só aceita inteiro entre 1 e 1000; qualquer
+      // outra coisa na URL é ignorada, nunca aplicada como filtro.
+      guestCount: parseTrustedGuestCount(searchParams.get("convidados")),
     };
   });
   const [sort, setSort] = React.useState<SortOption>("recomendados");
@@ -225,7 +233,33 @@ export function LocaisPageClient() {
           {loading ? (
             <VenueGridSkeleton />
           ) : filtered.length === 0 ? (
-            <EmptyState onAction={() => setFilters(emptyFilters)} />
+            filters.guestCount ? (
+              <EmptyState
+                title={`Não encontramos locais para ${filters.guestCount.toLocaleString(
+                  "pt-BR"
+                )} convidados${
+                  filters.neighborhoodSlug
+                    ? ` em ${getNeighborhoodBySlug(filters.neighborhoodSlug)?.label ?? "este bairro"}`
+                    : " nesta região"
+                }.`}
+                description="Tente reduzir o número de convidados, escolher outro bairro ou falar com a Festei."
+                actionLabel="Ajustar filtros"
+                onAction={() => setFilters({ ...filters, guestCount: null, neighborhoodSlug: "" })}
+                extraLink={{ href: "/anunciar", label: "Anunciar meu local" }}
+              />
+            ) : filters.neighborhoodSlug ? (
+              <EmptyState
+                title={`Não encontramos locais cadastrados em ${
+                  getNeighborhoodBySlug(filters.neighborhoodSlug)?.label ?? "este bairro"
+                }.`}
+                description="Estamos formando nosso catálogo inicial. Conheça outras regiões ou cadastre seu local na Festei."
+                actionLabel="Ver outros bairros"
+                onAction={() => setFilters({ ...filters, neighborhoodSlug: "" })}
+                extraLink={{ href: "/anunciar", label: "Anunciar meu local" }}
+              />
+            ) : (
+              <EmptyState onAction={() => setFilters(emptyFilters)} />
+            )
           ) : (
             <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
               {filtered.map((venue) => (

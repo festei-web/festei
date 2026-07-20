@@ -2,10 +2,19 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { PartyPopper, MapPin, Users, ArrowRight } from "lucide-react";
+import { PartyPopper, MapPin, Users, ArrowRight, AlertCircle } from "lucide-react";
 import { eventTypeLabels } from "@/data/constants";
+import { allNeighborhoods } from "@/data/rio-neighborhoods";
 import { track } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
+import { EventTypeSelect } from "@/components/ui/event-type-select";
+import { NeighborhoodCombobox } from "@/components/ui/neighborhood-combobox";
+import { validateGuestCount, MAX_GUEST_COUNT } from "@/schemas/guest-count";
+
+const eventTypeOptions = Object.entries(eventTypeLabels).map(([value, label]) => ({
+  value,
+  label,
+}));
 
 /**
  * Busca da Festei — identidade própria, deliberadamente diferente do
@@ -17,16 +26,41 @@ import { cn } from "@/lib/utils";
 export function SearchBar() {
   const router = useRouter();
   const [eventType, setEventType] = React.useState("");
-  const [location, setLocation] = React.useState("");
+  const [neighborhoodSlug, setNeighborhoodSlug] = React.useState("");
   const [guests, setGuests] = React.useState("");
+  const [guestsError, setGuestsError] = React.useState<string | null>(null);
+  const guestsInputRef = React.useRef<HTMLInputElement>(null);
+
+  // Nunca deixa digitar mais de 4 algarismos (limite de 1000 tem 4
+  // dígitos) — restrição em tempo real, além da validação completa que
+  // roda ao sair do campo e ao enviar o formulário.
+  function handleGuestsChange(raw: string) {
+    const digitCount = (raw.match(/\d/g) ?? []).length;
+    if (digitCount > 4) return;
+    setGuests(raw);
+    if (guestsError) setGuestsError(null);
+  }
+
+  function handleGuestsBlur() {
+    const { error } = validateGuestCount(guests);
+    setGuestsError(error);
+  }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    const { value: guestsValue, error: guestsValidationError } = validateGuestCount(guests);
+    if (guestsValidationError) {
+      setGuestsError(guestsValidationError);
+      guestsInputRef.current?.focus();
+      return;
+    }
+
     const params = new URLSearchParams();
-    if (location) params.set("local", location);
+    if (neighborhoodSlug) params.set("bairro", neighborhoodSlug);
     if (eventType) params.set("evento", eventType);
-    if (guests) params.set("convidados", guests);
-    track("hero_search_submitted", { location, eventType, guests });
+    if (guestsValue) params.set("convidados", String(guestsValue));
+    track("hero_search_submitted", { neighborhoodSlug, eventType, guests: guestsValue });
     router.push(`/locais?${params.toString()}`);
   }
 
@@ -42,41 +76,50 @@ export function SearchBar() {
           icon={<PartyPopper className="h-5 w-5" aria-hidden />}
           label="Tipo de evento"
         >
-          <select
+          <EventTypeSelect
+            variant="bare"
             value={eventType}
-            onChange={(e) => setEventType(e.target.value)}
-            className="w-full min-w-0 truncate appearance-none bg-transparent text-[15px] font-medium text-ink focus:outline-none"
-          >
-            <option value="">Selecione o tipo</option>
-            {Object.entries(eventTypeLabels).map(([key, label]) => (
-              <option key={key} value={key}>
-                {label}
-              </option>
-            ))}
-          </select>
-        </Field>
-
-        <Field icon={<MapPin className="h-5 w-5" aria-hidden />} label="Região">
-          <input
-            type="text"
-            placeholder="Bairro ou cidade"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            className="w-full min-w-0 bg-transparent text-[15px] font-medium text-ink placeholder:text-gray-medium placeholder:font-normal focus:outline-none"
+            onChange={setEventType}
+            options={eventTypeOptions}
+            placeholder="Selecione o tipo de festa"
           />
         </Field>
 
-        <Field icon={<Users className="h-5 w-5" aria-hidden />} label="Convidados">
+        <Field icon={<MapPin className="h-5 w-5" aria-hidden />} label="Região">
+          <NeighborhoodCombobox
+            variant="bare"
+            value={neighborhoodSlug}
+            onChange={setNeighborhoodSlug}
+            options={allNeighborhoods}
+            placeholder="Selecione um bairro"
+          />
+        </Field>
+
+        <Field icon={<Users className="h-5 w-5" aria-hidden />} label="Convidados" error={!!guestsError}>
           <input
+            ref={guestsInputRef}
             type="number"
             min={1}
+            max={MAX_GUEST_COUNT}
+            step={1}
+            inputMode="numeric"
             placeholder="Quantas pessoas"
             value={guests}
-            onChange={(e) => setGuests(e.target.value)}
+            aria-invalid={!!guestsError}
+            aria-describedby={guestsError ? "hero-guests-error" : undefined}
+            onChange={(e) => handleGuestsChange(e.target.value)}
+            onBlur={handleGuestsBlur}
             className="w-full min-w-0 bg-transparent text-[15px] font-medium text-ink placeholder:text-gray-medium placeholder:font-normal focus:outline-none"
           />
         </Field>
       </div>
+
+      {guestsError && (
+        <p id="hero-guests-error" role="alert" className="mt-2 flex items-center gap-1.5 text-sm text-error">
+          <AlertCircle className="h-3.5 w-3.5 shrink-0" aria-hidden />
+          {guestsError}
+        </p>
+      )}
 
       <button
         type="submit"
@@ -93,16 +136,19 @@ function Field({
   icon,
   label,
   children,
+  error,
 }: {
   icon: React.ReactNode;
   label: string;
   children: React.ReactNode;
+  error?: boolean;
 }) {
   return (
     <label
       className={cn(
         "flex items-center gap-3 rounded-2xl border border-border bg-gray-light/50 px-4 py-3",
-        "transition-colors duration-200 focus-within:border-primary focus-within:bg-primary-light/40"
+        "transition-colors duration-200 focus-within:border-primary focus-within:bg-primary-light/40",
+        error && "border-error focus-within:border-error"
       )}
     >
       <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-primary shadow-[var(--shadow-sm)]">

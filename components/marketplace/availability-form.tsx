@@ -6,7 +6,7 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PartyPopper } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Select } from "@/components/ui/select";
+import { EventTypeSelect } from "@/components/ui/event-type-select";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { SuccessState } from "@/components/ui/states";
@@ -20,6 +20,11 @@ import {
   type AvailabilityRequestInput,
   type AvailabilityRequestValues,
 } from "@/schemas/lead";
+
+const eventTypeOptions = Object.entries(eventTypeLabels).map(([value, label]) => ({
+  value,
+  label,
+}));
 
 /**
  * Painel de solicitação — identidade própria, não um "checkout" de
@@ -124,18 +129,22 @@ export function AvailabilityForm({
         {...register("website")}
       />
 
-      <Select
-        label="Tipo de evento"
-        error={errors.eventType?.message}
-        {...register("eventType")}
-      >
-        <option value="">Selecione a ocasião</option>
-        {Object.entries(eventTypeLabels).map(([key, label]) => (
-          <option key={key} value={key}>
-            {label}
-          </option>
-        ))}
-      </Select>
+      <Controller
+        control={control}
+        name="eventType"
+        render={({ field }) => (
+          <EventTypeSelect
+            label="Tipo de festa"
+            id={field.name}
+            name={field.name}
+            value={field.value ?? ""}
+            onChange={field.onChange}
+            options={eventTypeOptions}
+            placeholder="Selecione o tipo de festa"
+            error={errors.eventType?.message}
+          />
+        )}
+      />
 
       <div className="grid gap-4 sm:grid-cols-3">
         <Input

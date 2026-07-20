@@ -43,7 +43,7 @@ function MobileFilterDrawer({
   };
 
   const activeCount =
-    (filters.location ? 1 : 0) +
+    (filters.neighborhoodSlug ? 1 : 0) +
     (filters.category ? 1 : 0) +
     (filters.eventType ? 1 : 0) +
     (filters.guestCount ? 1 : 0) +
