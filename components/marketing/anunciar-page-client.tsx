@@ -1,6 +1,5 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
 import { TrendingUp, FileEdit, Camera, ClipboardCheck } from "lucide-react";
 import { OwnerLeadForm } from "@/components/marketplace/owner-lead-form";
 import { Breadcrumb } from "@/components/marketplace/breadcrumb";
@@ -13,7 +12,7 @@ const benefits = [
   },
   {
     icon: ClipboardCheck,
-    title: "Alcance fora do Instagram",
+    title: "Alcance além das redes sociais",
     text: "Apareça para pessoas que já estão planejando um evento e pesquisando por região, tipo e capacidade.",
   },
   {
@@ -29,17 +28,13 @@ const benefits = [
 ];
 
 export function AnunciarPageClient() {
-  const searchParams = useSearchParams();
-  const modo = searchParams.get("modo");
-  const initialMode = modo === "ligacao" ? "ligacao" : "cadastro";
-
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-10">
       <Breadcrumb items={[{ label: "Início", href: "/" }, { label: "Anunciar local" }]} />
 
       <div className="mx-auto max-w-2xl text-center">
         <h1 className="text-3xl font-bold text-ink sm:text-4xl">
-          Transforme datas disponíveis em novas oportunidades
+          Anuncie seu local e comece a receber solicitações
         </h1>
         <p className="mt-4 text-gray-medium">
           Mostre seu local para pessoas que já estão planejando uma festa e
@@ -68,7 +63,7 @@ export function AnunciarPageClient() {
       </p>
 
       <div className="mt-8 rounded-2xl border border-border bg-white p-6 sm:p-8">
-        <OwnerLeadForm initialMode={initialMode} />
+        <OwnerLeadForm />
       </div>
     </div>
   );

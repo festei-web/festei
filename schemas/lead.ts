@@ -43,15 +43,3 @@ export const ownerSelfServiceSchema = z.object({
 
 export type OwnerSelfServiceInput = z.input<typeof ownerSelfServiceSchema>;
 export type OwnerSelfServiceValues = z.output<typeof ownerSelfServiceSchema>;
-
-// Cadastro de proprietário — caminho assistido ("Prefiro que me liguem")
-// Apenas dois campos, de propósito — reduzir fricção para o proprietário cético
-// (PRD Cap. 3, seção 3.9; Cap. 4, seção 4.4).
-export const ownerAssistedSchema = z.object({
-  name: z.string().trim().min(2, "Informe seu nome completo.").max(120),
-  phone: z.string().trim().min(10, "Informe um telefone válido com DDD.").max(20),
-  website: honeypot,
-});
-
-export type OwnerAssistedInput = z.input<typeof ownerAssistedSchema>;
-export type OwnerAssistedValues = z.output<typeof ownerAssistedSchema>;

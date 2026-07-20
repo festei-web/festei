@@ -10,6 +10,7 @@ const columns = [
       { href: "/#como-funciona", label: "Como funciona" },
       { href: "/anunciar", label: "Para proprietários" },
       { href: "/#faq", label: "FAQ" },
+      { href: "/contato", label: "Contato" },
     ],
   },
   {
@@ -17,7 +18,6 @@ const columns = [
     links: [
       { href: "/privacidade", label: "Política de Privacidade" },
       { href: "/termos", label: "Termos de Uso" },
-      { href: "/contato", label: "Contato" },
     ],
   },
 ];
@@ -34,7 +34,7 @@ export function Footer() {
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-gray-medium">
               A Festei conecta pessoas aos melhores locais para eventos,
               tornando a organização de celebrações mais simples, rápida e
-              segura. Cobertura na cidade do Rio de Janeiro.
+              segura.
             </p>
             {/* Redes sociais: adicionar os links reais aqui assim que os
                 perfis oficiais da Festei forem criados. Removidos por

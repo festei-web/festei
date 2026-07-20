@@ -7,6 +7,8 @@ export const eventTypeLabels: Record<EventType, string> = {
   "cha-revelacao": "Chá revelação",
   noivado: "Noivado",
   confraternizacao: "Confraternização",
+  casamento: "Casamento",
+  "festa-15-anos": "Festa de 15 anos",
 };
 
 // Bairros usados apenas como sugestão de busca — cobertura real é o

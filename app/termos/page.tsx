@@ -43,8 +43,8 @@ export default function TermosPage() {
             dentro do razoável, mas não garante a veracidade absoluta de
             fotos, preços ou disponibilidade a qualquer momento. A
             confirmação final de reserva, pagamento e condições do evento é
-            negociada diretamente entre cliente e proprietário, com apoio da
-            nossa equipe.
+            negociada entre cliente e proprietário, com a nossa equipe
+            intermediando o contato.
           </p>
         </section>
 

@@ -45,9 +45,9 @@ export function SearchBar() {
           <select
             value={eventType}
             onChange={(e) => setEventType(e.target.value)}
-            className="w-full appearance-none bg-transparent text-[15px] font-medium text-ink focus:outline-none"
+            className="w-full min-w-0 truncate appearance-none bg-transparent text-[15px] font-medium text-ink focus:outline-none"
           >
-            <option value="">Qual a celebração?</option>
+            <option value="">Selecione o tipo</option>
             {Object.entries(eventTypeLabels).map(([key, label]) => (
               <option key={key} value={key}>
                 {label}
@@ -62,7 +62,7 @@ export function SearchBar() {
             placeholder="Bairro ou cidade"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
-            className="w-full bg-transparent text-[15px] font-medium text-ink placeholder:text-gray-medium placeholder:font-normal focus:outline-none"
+            className="w-full min-w-0 bg-transparent text-[15px] font-medium text-ink placeholder:text-gray-medium placeholder:font-normal focus:outline-none"
           />
         </Field>
 
@@ -73,7 +73,7 @@ export function SearchBar() {
             placeholder="Quantas pessoas"
             value={guests}
             onChange={(e) => setGuests(e.target.value)}
-            className="w-full bg-transparent text-[15px] font-medium text-ink placeholder:text-gray-medium placeholder:font-normal focus:outline-none"
+            className="w-full min-w-0 bg-transparent text-[15px] font-medium text-ink placeholder:text-gray-medium placeholder:font-normal focus:outline-none"
           />
         </Field>
       </div>
@@ -108,7 +108,7 @@ function Field({
       <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-primary shadow-[var(--shadow-sm)]">
         {icon}
       </span>
-      <span className="flex-1 text-left">
+      <span className="min-w-0 flex-1 text-left">
         <span className="block text-[11px] font-semibold uppercase tracking-wide text-gray-medium">
           {label}
         </span>

@@ -4,7 +4,9 @@ export type EventType =
   | "festa-infantil"
   | "cha-revelacao"
   | "noivado"
-  | "confraternizacao";
+  | "confraternizacao"
+  | "casamento"
+  | "festa-15-anos";
 
 export type VenueCategory =
   | "casa"

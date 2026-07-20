@@ -1,10 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import {
-  availabilityRequestSchema,
-  ownerSelfServiceSchema,
-  ownerAssistedSchema,
-} from "@/schemas/lead";
+import { availabilityRequestSchema, ownerSelfServiceSchema } from "@/schemas/lead";
 import { checkRateLimit } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
@@ -12,13 +8,12 @@ export const runtime = "nodejs";
 const schemasByType = {
   availability_request: availabilityRequestSchema,
   owner_self_service: ownerSelfServiceSchema,
-  owner_assisted: ownerAssistedSchema,
 } as const;
 
 type LeadType = keyof typeof schemasByType;
 
 const requestBodySchema = z.object({
-  type: z.enum(["availability_request", "owner_self_service", "owner_assisted"]),
+  type: z.enum(["availability_request", "owner_self_service"]),
   data: z.record(z.string(), z.unknown()),
 });
 

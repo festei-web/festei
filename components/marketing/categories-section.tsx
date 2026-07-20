@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { SafeImage } from "@/components/ui/safe-image";
 import { Reveal } from "@/components/ui/reveal";
-import { categories } from "@/data/categories";
+import { eventCategories } from "@/data/event-categories";
 import { track } from "@/lib/analytics";
 
 export function CategoriesSection() {
@@ -14,19 +14,19 @@ export function CategoriesSection() {
           Explore
         </span>
         <h2 className="mt-2 text-3xl font-bold tracking-tight text-ink md:text-4xl">
-          Que tipo de local você procura?
+          Para qual ocasião você está planejando?
         </h2>
         <p className="mt-3 text-gray-medium">
-          Ambientes preparados para receber os mais diversos tipos de celebração.
+          De aniversário a casamento, a gente ajuda a achar o lugar certo.
         </p>
       </Reveal>
 
       <div className="mt-12 grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-4">
-        {categories.map((category, i) => (
+        {eventCategories.map((category, i) => (
           <Reveal key={category.id} delay={i * 60}>
             <Link
-              href={`/locais?categoria=${category.id}`}
-              onClick={() => track("category_selected", { category: category.id })}
+              href={`/locais?evento=${category.id}`}
+              onClick={() => track("category_selected", { eventType: category.id })}
               className="group relative flex h-40 items-end overflow-hidden rounded-2xl shadow-[var(--shadow-sm)] transition-shadow duration-300 hover:shadow-[var(--shadow-md)] sm:h-48"
             >
               <SafeImage

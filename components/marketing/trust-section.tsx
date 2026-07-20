@@ -1,11 +1,10 @@
-import { Users2, LayoutList, FileCheck2, BadgeCheck, Wallet, UserCheck, FolderCheck } from "lucide-react";
+import { Users2, LayoutList, FileCheck2, BadgeCheck, UserCheck, FolderCheck } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 
 const items = [
   { icon: LayoutList, text: "Capacidade informada" },
   { icon: FolderCheck, text: "Estrutura disponível" },
   { icon: FileCheck2, text: "Regras do local" },
-  { icon: Wallet, text: "Valores iniciais" },
   { icon: UserCheck, text: "Identificação do responsável" },
   { icon: BadgeCheck, text: "Solicitação sem cobrança" },
   { icon: Users2, text: "Informações organizadas em um só lugar" },
@@ -21,7 +20,7 @@ export function TrustSection() {
           </h2>
         </Reveal>
 
-        <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3">
           {items.map((item, i) => (
             <Reveal
               key={item.text}

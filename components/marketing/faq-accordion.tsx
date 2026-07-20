@@ -11,7 +11,7 @@ const tabs = [
 ] as const;
 
 export function FaqAccordion() {
-  const [activeGroup, setActiveGroup] = React.useState<(typeof tabs)[number]["id"]>("buscando");
+  const [activeGroup, setActiveGroup] = React.useState<(typeof tabs)[number]["id"]>("proprietarios");
   const [openIndex, setOpenIndex] = React.useState<number | null>(0);
 
   const items = faq.filter((item) => item.group === activeGroup);

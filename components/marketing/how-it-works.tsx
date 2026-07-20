@@ -15,12 +15,12 @@ const steps = [
   {
     icon: Send,
     title: "Solicite disponibilidade",
-    text: "Envie os dados do evento para o responsável pelo local.",
+    text: "Envie os dados do seu evento e a nossa equipe repassa ao responsável pelo local.",
   },
   {
     icon: MessageCircle,
     title: "Combine os detalhes",
-    text: "Converse diretamente para confirmar condições, contrato e reserva.",
+    text: "Com o apoio da nossa equipe, alinhe condições, contrato e reserva com o proprietário.",
   },
 ];
 
@@ -58,9 +58,9 @@ export function HowItWorks() {
 
         <Reveal delay={400} className="mx-auto mt-12 max-w-2xl rounded-2xl border border-border bg-gray-light/50 p-5 text-center">
           <p className="text-sm text-gray-medium">
-            A solicitação não confirma uma reserva automaticamente. A negociação
-            acontece diretamente entre você e o responsável pelo local, e não há
-            cobrança no momento do envio.
+            A solicitação não confirma uma reserva automaticamente. Nossa
+            equipe intermedia a negociação com o responsável pelo local, e não
+            há cobrança no momento do envio.
           </p>
         </Reveal>
       </div>

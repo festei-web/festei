@@ -173,7 +173,7 @@ export default async function VenueDetailPage({
             </h2>
             <p className="mt-2 text-sm text-gray-medium">
               {venue.neighborhood}, {venue.city} — o endereço completo é
-              compartilhado durante a negociação, após o primeiro contato.
+              compartilhado pela nossa equipe durante a negociação.
             </p>
             <div className="mt-4">
               <AreaPreview neighborhood={venue.neighborhood} city={venue.city} />
@@ -192,7 +192,7 @@ export default async function VenueDetailPage({
             <p className="mt-3 text-sm text-gray-medium">
               Itens como caução, taxa de limpeza, hora extra ou serviços
               opcionais variam de acordo com cada local e serão informados
-              diretamente pelo responsável durante o contato.
+              durante o contato com a nossa equipe.
             </p>
           </section>
 
@@ -206,9 +206,9 @@ export default async function VenueDetailPage({
               Sobre o proprietário
             </h2>
             <p className="mt-3 text-sm text-gray-medium">
-              O responsável por este local recebe as solicitações diretamente
-              pela Festei e poderá se apresentar e confirmar as condições ao
-              entrar em contato com você.
+              O responsável por este local recebe as solicitações através da
+              nossa equipe, que cuida do contato e ajuda a confirmar as
+              condições com você.
             </p>
           </section>
 

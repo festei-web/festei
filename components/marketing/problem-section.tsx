@@ -15,7 +15,7 @@ const points = [
   {
     icon: Clock,
     title: "Tempo perdido",
-    text: "Muitas mensagens são trocadas antes de descobrir se o local realmente atende ao evento.",
+    text: "Sem informações completas de cara, você só descobre se o local atende ao seu evento depois de muita ida e volta.",
   },
 ];
 

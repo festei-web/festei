@@ -25,7 +25,8 @@ import {
  * Painel de solicitação — identidade própria, não um "checkout" de
  * hospedagem. O tom é de formulário de planejamento de evento: pede
  * horário de início/fim (não apenas uma data) e tipo de celebração,
- * e o botão final diz "Enviar solicitação", nunca "Reservar".
+ * e o botão final diz "Consultar disponibilidade" (padrão oficial), nunca
+ * "Reservar" ou "Solicitar".
  */
 
 // Máscara simples de telefone brasileiro: (21) 99999-9999 / (21) 9999-9999.
@@ -91,7 +92,7 @@ export function AvailabilityForm({
     return (
       <SuccessState
         title="Solicitação enviada com sucesso"
-        description="O responsável pelo local recebeu os dados do seu evento e poderá entrar em contato pelo canal informado."
+        description="Nossa equipe recebeu os dados do seu evento e vai confirmar disponibilidade e condições com o responsável pelo local, entrando em contato com você pelo canal informado."
         action={
           <div className="mt-6 flex flex-col gap-2 sm:flex-row">
             <Button asChild variant="secondary" size="sm">
@@ -205,16 +206,16 @@ export function AvailabilityForm({
       />
 
       <Button type="submit" size="lg" fullWidth loading={isSubmitting}>
-        Solicitar disponibilidade
+        Consultar disponibilidade
       </Button>
       <p className="text-xs text-gray-medium">
-        A solicitação não confirma uma reserva e não gera cobrança. O
-        responsável receberá os dados do evento e poderá entrar em contato
-        para informar disponibilidade e condições.
+        A solicitação não confirma uma reserva e não gera cobrança. Nossa
+        equipe confirma disponibilidade e condições com o responsável pelo
+        local, e entra em contato com você pelo canal informado.
       </p>
       <p className="text-xs text-gray-medium">
-        Seus dados serão usados apenas para viabilizar o contato com o
-        proprietário deste local. Veja nossa{" "}
+        Seus dados serão usados apenas para viabilizar sua solicitação junto
+        ao proprietário deste local, através da nossa equipe. Veja nossa{" "}
         <a href="/privacidade" className="underline hover:text-primary">
           Política de Privacidade
         </a>

@@ -6,7 +6,7 @@ export const faq: FaqItem[] = [
     group: "buscando",
     question: "A solicitação já confirma a reserva?",
     answer:
-      "Não. A solicitação leva os dados do seu evento até o responsável pelo local, que entrará em contato para confirmar disponibilidade e condições. A reserva só acontece depois dessa conversa.",
+      "Não. A solicitação leva os dados do seu evento até a nossa equipe, que confirma disponibilidade e condições com o responsável pelo local. A reserva só acontece depois desse processo.",
   },
   {
     group: "buscando",
@@ -17,19 +17,19 @@ export const faq: FaqItem[] = [
     group: "buscando",
     question: "Como recebo a resposta?",
     answer:
-      "Pelo canal de contato que você escolher no formulário — telefone/WhatsApp ou apenas mensagem de texto. O responsável pelo local entra em contato diretamente com você.",
+      "Pelo canal de contato que você escolher no formulário — telefone/WhatsApp ou apenas mensagem de texto. Nossa equipe entra em contato com você trazendo a resposta do responsável pelo local.",
   },
   {
     group: "buscando",
     question: "Posso visitar o local antes de reservar?",
     answer:
-      "Isso depende de cada proprietário. Você pode perguntar sobre a possibilidade de visita diretamente na conversa após enviar sua solicitação.",
+      "Isso depende de cada proprietário. Você pode perguntar sobre a possibilidade de visita com a nossa equipe, depois de enviar sua solicitação.",
   },
   {
     group: "buscando",
     question: "A Festei participa do contrato?",
     answer:
-      "Não. A Festei conecta você ao responsável pelo local, mas a negociação, o contrato e a reserva são combinados diretamente entre as partes.",
+      "A Festei não é parte no contrato final, mas intermedia toda a negociação. O contrato e a reserva são combinados entre você e o responsável pelo local, sempre com o apoio da nossa equipe.",
   },
   {
     group: "buscando",
@@ -47,7 +47,7 @@ export const faq: FaqItem[] = [
     group: "buscando",
     question: "Onde encontro o endereço completo?",
     answer:
-      "O endereço completo é compartilhado pelo responsável durante a negociação, após o primeiro contato — por segurança, ele não fica público na página do local.",
+      "O endereço completo é compartilhado pela nossa equipe durante a negociação — por segurança, ele não fica público na página do local.",
   },
 
   // Para proprietários
@@ -55,7 +55,7 @@ export const faq: FaqItem[] = [
     group: "proprietarios",
     question: "Como anuncio meu local?",
     answer:
-      "Você pode se cadastrar diretamente pela plataforma, preenchendo as informações do seu local, ou pedir para que nossa equipe ligue e ajude em todo o processo.",
+      "Você se cadastra diretamente pela plataforma, preenchendo as informações do seu local. É rápido e sem burocracia.",
   },
   {
     group: "proprietarios",
@@ -72,7 +72,7 @@ export const faq: FaqItem[] = [
     group: "proprietarios",
     question: "Como recebo os contatos?",
     answer:
-      "As solicitações chegam com os dados do evento (tipo, data, horário, convidados) e a forma de contato preferida da pessoa interessada.",
+      "As solicitações chegam até você através da nossa equipe, com os dados do evento (tipo, data, horário, convidados) já organizados.",
   },
   {
     group: "proprietarios",

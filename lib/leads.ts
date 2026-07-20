@@ -11,7 +11,7 @@
  * SEMPRE retorna erro ao usuário; nunca um sucesso falso.
  */
 
-export type LeadType = "availability_request" | "owner_self_service" | "owner_assisted";
+export type LeadType = "availability_request" | "owner_self_service";
 
 export interface SubmitLeadResult {
   ok: boolean;
