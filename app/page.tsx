@@ -7,6 +7,7 @@ import { TrustSection } from "@/components/marketing/trust-section";
 import { OwnerSection } from "@/components/marketing/owner-section";
 import { FaqAccordion } from "@/components/marketing/faq-accordion";
 import { CtaSection } from "@/components/marketing/cta-section";
+import { AppFutureSection } from "@/components/marketing/app-future-section";
 
 export default function HomePage() {
   return (
@@ -20,6 +21,7 @@ export default function HomePage() {
       <FounderProgramSection />
       <FaqAccordion />
       <CtaSection />
+      <AppFutureSection />
     </>
   );
 }
