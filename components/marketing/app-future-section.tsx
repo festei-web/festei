@@ -26,13 +26,13 @@ export function AppFutureSection() {
               aria-hidden
             />
             <div className="flex aspect-[9/19] items-center justify-center rounded-[2rem] bg-gray-light">
-              <div className="relative h-16 w-16 sm:h-20 sm:w-20">
+              <div className="relative h-24 w-24 overflow-hidden rounded-[1.5rem] shadow-[var(--shadow-md)] sm:h-28 sm:w-28">
                 <Image
-                  src="/images/logo.png"
+                  src="/images/app-icon.png"
                   alt="Logo do aplicativo Festei"
                   fill
-                  sizes="80px"
-                  className="object-contain"
+                  sizes="112px"
+                  className="object-cover"
                 />
               </div>
             </div>
