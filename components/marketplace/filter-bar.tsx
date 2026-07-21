@@ -42,6 +42,23 @@ function MobileFilterDrawer({
     setOpen(true);
   };
 
+  React.useEffect(() => {
+    if (!open) return;
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [open]);
+
   const activeCount =
     (filters.neighborhoodSlug ? 1 : 0) +
     (filters.category ? 1 : 0) +

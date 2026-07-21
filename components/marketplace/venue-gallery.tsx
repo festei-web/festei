@@ -12,6 +12,26 @@ export function VenueGallery({ images, alt }: { images: string[]; alt: string })
   const go = (dir: 1 | -1) =>
     setActive((a) => (a + dir + images.length) % images.length);
 
+  React.useEffect(() => {
+    if (!lightbox) return;
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightbox(false);
+      if (e.key === "ArrowLeft") go(-1);
+      if (e.key === "ArrowRight") go(1);
+    };
+    document.addEventListener("keydown", onKeyDown);
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lightbox]);
+
   return (
     <>
       {/* Desktop */}
