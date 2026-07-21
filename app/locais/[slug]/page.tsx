@@ -113,7 +113,7 @@ export default async function VenueDetailPage({
                 </span>
               </div>
             </div>
-            <VenueActionButtons venueId={venue.id} />
+            <VenueActionButtons venueId={venue.id} venueName={venue.name} />
           </div>
 
           {/* Resumo rápido */}
