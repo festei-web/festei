@@ -10,9 +10,9 @@ import type { EventType } from "@/types";
  * "Tipo de evento" da busca (lib EventType), pra manter os dois lugares
  * consistentes.
  *
- * PLACEHOLDER: as 8 imagens abaixo são temporárias (reaproveitadas de
- * data/categories.ts) até Rafael enviar as fotos reais por ocasião —
- * specs passadas: 1600×1200px mín., proporção 4:3, assunto centralizado.
+ * PLACEHOLDER: casamento, festa-15-anos e cha-revelacao ainda usam fotos
+ * temporárias (Unsplash) até Rafael enviar o restante do lote de fotos
+ * reais por ocasião.
  */
 export interface EventCategory {
   id: EventType;
@@ -24,20 +24,17 @@ export const eventCategories: EventCategory[] = [
   {
     id: "aniversario",
     label: "Aniversário",
-    image:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+    image: "/images/categories/aniversario.jpg",
   },
   {
     id: "churrasco",
     label: "Churrasco",
-    image:
-      "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=800&q=80",
+    image: "/images/categories/churrasco.jpg",
   },
   {
     id: "festa-infantil",
     label: "Festa infantil",
-    image:
-      "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=800&q=80",
+    image: "/images/categories/festa-infantil.jpg",
   },
   {
     id: "cha-revelacao",
@@ -48,14 +45,12 @@ export const eventCategories: EventCategory[] = [
   {
     id: "noivado",
     label: "Noivado",
-    image:
-      "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800&q=80",
+    image: "/images/categories/noivado.jpg",
   },
   {
     id: "confraternizacao",
     label: "Confraternização",
-    image:
-      "https://images.unsplash.com/photo-1500076656116-558758c991c1?w=800&q=80",
+    image: "/images/categories/confraternizacao.jpg",
   },
   {
     id: "casamento",
