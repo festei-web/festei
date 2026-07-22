@@ -49,7 +49,7 @@ export function FounderProgramSection() {
             Parceiros fundadores
           </span>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-ink md:text-4xl">
-            Faça parte do catálogo inicial da Festei
+            Você pode ser um dos primeiros anfitriões da Festei
           </h2>
           <p className="mt-4 text-base text-gray-medium sm:text-lg">
             A Festei está formando sua primeira seleção de locais para
@@ -79,7 +79,7 @@ export function FounderProgramSection() {
         </Reveal>
 
         <Reveal delay={220} className="mx-auto mt-8 max-w-md">
-          <OwnerCTA fullWidth />
+          <OwnerCTA fullWidth size="xl" />
         </Reveal>
       </div>
     </section>

@@ -33,7 +33,7 @@ export function HowItWorks() {
             Como funciona
           </span>
           <h2 className="mt-2 text-3xl font-bold tracking-tight text-ink md:text-4xl">
-            Organizar seu evento pode ser muito mais simples
+            Do primeiro passo à festa combinada
           </h2>
         </Reveal>
 

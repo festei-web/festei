@@ -5,17 +5,17 @@ const points = [
   {
     icon: Layers,
     title: "Tudo espalhado",
-    text: "Fotos em um perfil, preço por mensagem e disponibilidade somente depois de conversar.",
+    text: "Fotos numa rede social, preço só por mensagem direta e disponibilidade que você só descobre insistindo.",
   },
   {
     icon: SplitSquareHorizontal,
     title: "Comparação difícil",
-    text: "Cada proprietário apresenta valores, estrutura e regras de uma maneira diferente.",
+    text: "Cada anfitrião conta as coisas do seu jeito — fica quase impossível colocar duas opções lado a lado.",
   },
   {
     icon: Clock,
     title: "Tempo perdido",
-    text: "Sem informações completas de cara, você só descobre se o local atende ao seu evento depois de muita ida e volta.",
+    text: "Você só descobre se o espaço serve para a sua festa depois de trocar uma dúzia de mensagens.",
   },
 ];
 
@@ -25,7 +25,7 @@ export function ProblemSection() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
         <Reveal className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight text-ink md:text-4xl">
-            Chega de procurar locais em dezenas de perfis
+            Chega de garimpar local de festa no Instagram e no grupo da família
           </h2>
         </Reveal>
 
@@ -47,8 +47,7 @@ export function ProblemSection() {
 
         <Reveal delay={300} className="mx-auto mt-12 max-w-2xl text-center">
           <p className="text-base font-medium text-ink">
-            A Festei reúne as informações essenciais para você encontrar opções
-            compatíveis antes de iniciar a negociação.
+            A Festei reúne o que importa para você decidir sem enrolação.
           </p>
         </Reveal>
       </div>
