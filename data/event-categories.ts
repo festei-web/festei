@@ -9,10 +9,6 @@ import type { EventType } from "@/types";
  * TIPO DE EVENTO/OCASIÃO do cliente — os mesmos valores usados no campo
  * "Tipo de evento" da busca (lib EventType), pra manter os dois lugares
  * consistentes.
- *
- * PLACEHOLDER: casamento, festa-15-anos e cha-revelacao ainda usam fotos
- * temporárias (Unsplash) até Rafael enviar o restante do lote de fotos
- * reais por ocasião.
  */
 export interface EventCategory {
   id: EventType;
@@ -39,8 +35,7 @@ export const eventCategories: EventCategory[] = [
   {
     id: "cha-revelacao",
     label: "Chá revelação",
-    image:
-      "https://images.unsplash.com/photo-1544148103-0773bf10d330?w=800&q=80",
+    image: "/images/categories/cha-revelacao.jpg",
   },
   {
     id: "noivado",
@@ -55,13 +50,11 @@ export const eventCategories: EventCategory[] = [
   {
     id: "casamento",
     label: "Casamento",
-    image:
-      "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&q=80",
+    image: "/images/categories/casamento.jpg",
   },
   {
     id: "festa-15-anos",
     label: "Festa de 15 anos",
-    image:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+    image: "/images/categories/festa-15-anos.jpg",
   },
 ];
