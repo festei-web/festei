@@ -25,7 +25,7 @@ export function OwnerSection() {
             Para proprietários
           </span>
           <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">
-            Transforme datas disponíveis em novas oportunidades
+            Seu espaço pode ser o cenário da próxima festa inesquecível
           </h2>
           <p className="mt-4 max-w-lg text-white/70">
             A Festei está selecionando casas, sítios, salões e outros

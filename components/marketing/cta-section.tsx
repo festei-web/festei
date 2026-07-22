@@ -12,11 +12,12 @@ export function CtaSection() {
             aria-hidden
           />
           <h2 className="relative mx-auto max-w-xl text-3xl font-bold tracking-tight md:text-5xl">
-            Tem um local adequado para festas?
+            Faça parte dos primeiros locais da Festei.
           </h2>
           <p className="relative mx-auto mt-4 max-w-md text-white/80">
-            Envie as informações iniciais e participe da seleção dos
-            primeiros locais da Festei no Rio de Janeiro.
+            Estamos começando pelo Rio de Janeiro, com um número pequeno de
+            locais escolhidos a dedo. Envie as informações do seu espaço e
+            participe dessa primeira fase.
           </p>
           <div className="relative mx-auto mt-9 flex max-w-md flex-col items-center gap-4">
             <Button
