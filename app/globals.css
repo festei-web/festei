@@ -166,3 +166,59 @@ body {
     transition: none;
   }
 }
+
+/* Destaque dourado do bloco "Parceiros fundadores" da home
+   (components/marketing/founder-program-section.tsx) — ÚNICO lugar do
+   site que usa este dourado. Não é uma cor de marca oficial da Festei
+   (que continua sendo o roxo); é um acabamento pontual, tipo cartão
+   Black/Platinum, reservado a esta seção. Não reutilizar em outras
+   páginas ou componentes.
+   A regra global de prefers-reduced-motion no topo deste arquivo já
+   zera a duração das transições abaixo também. */
+.founder-gold-card {
+  position: relative;
+  background:
+    radial-gradient(120% 140% at 100% 0%, rgba(232, 201, 106, 0.4) 0%, transparent 55%),
+    linear-gradient(165deg, #fff8e6 0%, #fdf2c4 55%, #f6e7a8 100%);
+  border: 1.5px solid #d4af37;
+  box-shadow:
+    0 24px 60px -20px rgba(212, 175, 55, 0.35),
+    0 2px 10px rgba(17, 17, 17, 0.05);
+  transition: box-shadow 250ms var(--ease-out);
+}
+.founder-gold-card:hover {
+  box-shadow:
+    0 30px 70px -18px rgba(212, 175, 55, 0.45),
+    0 4px 14px rgba(17, 17, 17, 0.06);
+}
+
+.founder-gold-shimmer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 42%,
+    rgba(255, 255, 255, 0.55) 50%,
+    transparent 58%
+  );
+  transform: translateX(-120%);
+  transition: transform 300ms var(--ease-out);
+}
+.founder-gold-card:hover .founder-gold-shimmer {
+  transform: translateX(120%);
+}
+
+.founder-gold-badge {
+  background: linear-gradient(135deg, #b8860b 0%, #8b6f1f 100%);
+}
+
+/* Ícone em tom dourado ligeiramente mais escuro que o sugerido para
+   passar no contraste mínimo de 3:1 (WCAG 1.4.11) contra o fundo
+   branco dos cards de benefício. */
+.founder-gold-icon {
+  color: #a67c1e;
+}
+.founder-gold-icon-circle {
+  background: rgba(212, 175, 55, 0.14);
+}
