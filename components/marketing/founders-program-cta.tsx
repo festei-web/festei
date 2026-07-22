@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { track } from "@/lib/analytics";
+import { cn } from "@/lib/utils";
 
 /**
  * CTA do bloco "Parceiros fundadores" da home — aponta para a página
@@ -22,13 +23,22 @@ export function FoundersProgramCTA({
       asChild
       size={size}
       fullWidth={fullWidth}
-      className="font-bold shadow-[var(--shadow-primary)] hover:-translate-y-0.5 hover:shadow-[var(--shadow-lg)]"
+      className={cn(
+        "font-bold shadow-[var(--shadow-primary)] hover:-translate-y-0.5 hover:shadow-[var(--shadow-lg)]",
+        // O texto "Quero ser Parceiro Fundador" é mais longo que o CTA
+        // anterior — em telas muito estreitas (~320px) o tamanho "xl"
+        // padrão (text-lg px-8) estourava a largura do botão. Ajuste
+        // discreto só abaixo do breakpoint sm; a partir de sm (≥640px,
+        // já cobre a maioria dos celulares) volta ao texto/espaçamento
+        // originais do tamanho xl.
+        size === "xl" && "px-5 text-base sm:px-8 sm:text-lg"
+      )}
     >
       <Link
         href="/parceiros-fundadores"
         onClick={() => track("owner_cta_clicked", { mode: "parceiros_fundadores_home_block" })}
       >
-        Quero me candidatar
+        Quero ser Parceiro Fundador
         <ArrowRight className="h-4 w-4" aria-hidden />
       </Link>
     </Button>
