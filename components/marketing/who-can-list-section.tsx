@@ -12,13 +12,17 @@ const venueTypes = [
   { icon: Waves, label: "Locais com piscina" },
 ];
 
-export function WhoCanListSection() {
+export function WhoCanListSection({
+  title = "Quem pode anunciar?",
+}: {
+  title?: string;
+}) {
   return (
     <section className="py-16 md:py-20">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-10">
         <Reveal className="mx-auto max-w-2xl text-center">
           <h2 className="text-2xl font-bold tracking-tight text-ink sm:text-3xl">
-            Quem pode anunciar?
+            {title}
           </h2>
         </Reveal>
 

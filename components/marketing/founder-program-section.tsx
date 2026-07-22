@@ -1,5 +1,5 @@
 import { Sparkles, Users, MessageSquare, Star } from "lucide-react";
-import { OwnerCTA } from "./owner-cta";
+import { FoundersProgramCTA } from "./founders-program-cta";
 import { Reveal } from "@/components/ui/reveal";
 
 const benefits = [
@@ -79,7 +79,7 @@ export function FounderProgramSection() {
         </Reveal>
 
         <Reveal delay={220} className="mx-auto mt-8 max-w-md">
-          <OwnerCTA fullWidth size="xl" />
+          <FoundersProgramCTA fullWidth size="xl" />
         </Reveal>
       </div>
     </section>
