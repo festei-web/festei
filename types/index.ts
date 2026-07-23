@@ -17,6 +17,152 @@ export type VenueCategory =
   | "rooftop"
   | "espaco-gourmet";
 
+/**
+ * Estado de uma regra do local. Cada campo de `ListingRules` usa um destes
+ * quatro valores — nunca um booleano — para poder expressar também
+ * "permitido com restrições" e "não informado" (Regras do Local, seção
+ * "Estados"). Também é a base da futura busca facetada (ex.: "aceita
+ * animais"): `permitido` e `restrito` contam como atendendo ao filtro,
+ * `proibido` e `nao_informado` não.
+ */
+export type RuleStatus = "permitido" | "proibido" | "restrito" | "nao_informado";
+
+/**
+ * Um campo individual de regra. `detail` é a informação objetiva e curta
+ * (ex.: "Até 22h"); `description` é o texto opcional mais longo. Nenhum dos
+ * dois deve ser inventado quando o proprietário não informou o dado — nesse
+ * caso o campo usa apenas `status: "nao_informado"` e fica sem `detail`.
+ */
+export interface RuleField {
+  status: RuleStatus;
+  detail?: string;
+  description?: string;
+}
+
+export interface OperatingHoursRules {
+  allowedHours?: RuleField;
+  maxEndTime?: RuleField;
+  setupTime?: RuleField;
+  teardownTime?: RuleField;
+  extraHours?: RuleField;
+}
+
+export interface CapacityRules {
+  maxGuests?: RuleField;
+  minGuests?: RuleField;
+  seated?: RuleField;
+  standing?: RuleField;
+}
+
+export interface MusicRules {
+  musicAllowed?: RuleField;
+  dj?: RuleField;
+  liveBand?: RuleField;
+  volumeLimit?: RuleField;
+  externalSoundSystem?: RuleField;
+}
+
+export interface DecorationRules {
+  decorationAllowed?: RuleField;
+  tape?: RuleField;
+  nails?: RuleField;
+  candles?: RuleField;
+  confetti?: RuleField;
+  smokeMachine?: RuleField;
+  fireworks?: RuleField;
+}
+
+export interface FoodRules {
+  externalCatering?: RuleField;
+  kitchenAvailable?: RuleField;
+  externalDrinks?: RuleField;
+  barbecue?: RuleField;
+  foodTruck?: RuleField;
+}
+
+export interface ChildrenRules {
+  allowed?: RuleField;
+  restrictions?: RuleField;
+  supervisionRequired?: RuleField;
+}
+
+export interface PetsRules {
+  allowed?: RuleField;
+  smallOnly?: RuleField;
+}
+
+export interface SuppliersRules {
+  ownSuppliersAllowed?: RuleField;
+  mandatoryList?: RuleField;
+  exclusiveSupplier?: RuleField;
+  setupAccess?: RuleField;
+}
+
+export interface CleaningRules {
+  included?: RuleField;
+  extraFee?: RuleField;
+  trashRemoval?: RuleField;
+  teardownRequired?: RuleField;
+}
+
+export interface DepositRules {
+  required?: RuleField;
+}
+
+export interface SecurityRules {
+  includedSecurity?: RuleField;
+  mandatorySecurity?: RuleField;
+  fireMarshal?: RuleField;
+  emergencyExit?: RuleField;
+}
+
+export interface ParkingRules {
+  spots?: RuleField;
+  valet?: RuleField;
+  thirdPartyParking?: RuleField;
+}
+
+export interface AccessibilityRules {
+  wheelchairAccess?: RuleField;
+  accessibleBathroom?: RuleField;
+  elevator?: RuleField;
+  ramps?: RuleField;
+}
+
+export interface CondominiumRules {
+  quietHours?: RuleField;
+  vehicleLimit?: RuleField;
+  circulationRestrictions?: RuleField;
+  guestRegistration?: RuleField;
+}
+
+/**
+ * Conjunto completo de regras de um local. Estrutura pensada para, no
+ * futuro, ser editada pelo proprietário em seu painel — cada categoria vira
+ * uma seção do formulário e cada `RuleField` um campo com status +
+ * detalhe + descrição (ver comentário em `data/venues.ts`). Também é a
+ * base prevista para filtros de busca (ex.: `pets.allowed === "permitido"`),
+ * ainda não implementados.
+ */
+export interface ListingRules {
+  operatingHours?: OperatingHoursRules;
+  capacity?: CapacityRules;
+  music?: MusicRules;
+  decoration?: DecorationRules;
+  food?: FoodRules;
+  children?: ChildrenRules;
+  pets?: PetsRules;
+  suppliers?: SuppliersRules;
+  cleaning?: CleaningRules;
+  deposit?: DepositRules;
+  security?: SecurityRules;
+  parking?: ParkingRules;
+  accessibility?: AccessibilityRules;
+  condominium?: CondominiumRules;
+  /** Campo livre para observações importantes que não caibam nas categorias acima. */
+  additionalRules?: string;
+}
+
 export interface Amenity {
   id: string;
   label: string;
@@ -50,7 +196,7 @@ export interface Venue {
   capacityMax: number;
   startingPrice: number;
   amenityIds: string[];
-  rules: string[];
+  rules: ListingRules;
   images: string[];
   featured: boolean;
   // Selo "Verificado" — independente de featured. Ver Design System Cap. 9

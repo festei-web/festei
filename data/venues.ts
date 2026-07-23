@@ -1,6 +1,16 @@
 import type { Venue } from "@/types";
 import { buildPublicLocation } from "@/lib/geo";
 
+// `rules` (Regras do Local) é um objeto `ListingRules` — nunca uma lista de
+// texto solto. Cada campo vem com `status` (permitido/proibido/restrito/
+// nao_informado) e, quando fizer sentido, `detail` (informação objetiva
+// curta) e `description` (texto opcional mais longo). Categorias inteiras
+// ou campos sem informação real são simplesmente omitidos do objeto — a UI
+// (VenueRulesSection) nunca inventa "Permitido" nem "Não informado" para
+// algo que não veio do cadastro do local. Estrutura pensada para virar,
+// futuramente, um formulário editável no painel do proprietário (ver
+// types/index.ts).
+
 // Dados demonstrativos. Cobertura: Rio de Janeiro, cidade inteira (PRD Cap. 2, 2.5) —
 // bairros variados de propósito, nunca restritos a uma única região.
 // Nenhum local possui campo de avaliação: funcionalidade pós-MVP (Design System Cap. 9).
@@ -32,7 +42,42 @@ export const venues: Venue[] = [
     capacityMax: 90,
     startingPrice: 1800,
     amenityIds: ["piscina", "churrasqueira", "estacionamento", "cozinha", "area-infantil", "wifi"],
-    rules: ["Som permitido até 22h", "Não é permitido fumar em áreas cobertas", "Animais de pequeno porte mediante consulta"],
+    rules: {
+      operatingHours: {
+        allowedHours: { status: "permitido", detail: "9h às 22h" },
+        extraHours: { status: "restrito", detail: "Mediante consulta, sujeito a disponibilidade e taxa adicional" },
+      },
+      music: {
+        musicAllowed: {
+          status: "permitido",
+          detail: "Permitida até 22h",
+          description: "Som ambiente e DJ liberados; após esse horário, apenas volume baixo.",
+        },
+        volumeLimit: { status: "restrito", detail: "Reduzir volume após 22h por respeito à vizinhança" },
+      },
+      food: {
+        externalCatering: { status: "permitido", detail: "Buffet próprio ou terceirizado liberado" },
+        kitchenAvailable: { status: "permitido", detail: "Cozinha equipada disponível" },
+        barbecue: { status: "permitido", detail: "Churrasqueira disponível para uso" },
+      },
+      decoration: {
+        decorationAllowed: { status: "permitido", detail: "Liberada, sem restrição de tema" },
+        candles: { status: "restrito", detail: "Apenas em suportes seguros, longe de cortinas e vegetação" },
+      },
+      children: {
+        allowed: { status: "permitido", detail: "Bem-vindas", description: "Área infantil disponível no quintal." },
+      },
+      pets: {
+        allowed: { status: "restrito", detail: "Pequeno porte, mediante consulta prévia" },
+      },
+      parking: {
+        spots: { status: "permitido", detail: "8 vagas privativas" },
+      },
+      deposit: {
+        required: { status: "nao_informado" },
+      },
+      additionalRules: "Não é permitido fumar em áreas cobertas.",
+    },
     images: [
       "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1200&q=80",
       "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1200&q=80",
@@ -66,7 +111,43 @@ export const venues: Venue[] = [
     capacityMax: 200,
     startingPrice: 2400,
     amenityIds: ["churrasqueira", "estacionamento", "jardim", "area-coberta", "gerador"],
-    rules: ["Horário de funcionamento até 23h", "Proibido uso de fogos de artifício", "Limpeza inclusa na locação"],
+    rules: {
+      operatingHours: {
+        allowedHours: { status: "permitido", detail: "10h às 23h" },
+        maxEndTime: { status: "permitido", detail: "Encerramento até 23h" },
+      },
+      music: {
+        musicAllowed: {
+          status: "permitido",
+          detail: "Liberada até 23h",
+          description: "Ambiente amplo e aberto, ideal para som mais alto sem incomodar vizinhos.",
+        },
+      },
+      decoration: {
+        decorationAllowed: { status: "permitido", detail: "Livre, qualquer tema" },
+        fireworks: { status: "proibido", detail: "Não é permitido uso de fogos de artifício" },
+      },
+      food: {
+        barbecue: { status: "permitido", detail: "Churrasqueira de alvenaria disponível" },
+        externalCatering: { status: "permitido", detail: "Buffet próprio ou terceirizado liberado" },
+      },
+      children: {
+        allowed: {
+          status: "permitido",
+          detail: "Bem-vindas",
+          description: "Espaço amplo e aberto; recomendamos supervisão dos responsáveis.",
+        },
+      },
+      pets: {
+        allowed: { status: "permitido", detail: "Bem-vindos", description: "Ambiente aberto e arborizado." },
+      },
+      cleaning: {
+        included: { status: "permitido", detail: "Limpeza inclusa na locação" },
+      },
+      parking: {
+        spots: { status: "permitido", detail: "Estacionamento amplo no local" },
+      },
+    },
     images: [
       "https://images.unsplash.com/photo-1500076656116-558758c991c1?w=1200&q=80",
       "https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=1200&q=80",
@@ -100,7 +181,32 @@ export const venues: Venue[] = [
     capacityMax: 250,
     startingPrice: 3200,
     amenityIds: ["piscina", "churrasqueira", "estacionamento", "area-coberta", "salao-jogos", "gerador"],
-    rules: ["Necessário agendamento de visita prévia", "Buffet próprio ou terceirizado mediante aprovação"],
+    rules: {
+      operatingHours: {
+        setupTime: { status: "restrito", detail: "Mediante agendamento prévio de visita técnica" },
+      },
+      music: {
+        musicAllowed: { status: "permitido", detail: "Liberada, com bom senso de volume" },
+      },
+      food: {
+        externalCatering: { status: "restrito", detail: "Buffet próprio ou terceirizado mediante aprovação" },
+      },
+      suppliers: {
+        ownSuppliersAllowed: { status: "restrito", detail: "Permitido mediante aprovação prévia da administração" },
+      },
+      children: {
+        allowed: {
+          status: "permitido",
+          detail: "Bem-vindas",
+          description: "Piscina infantil e salão de jogos disponíveis.",
+        },
+      },
+      capacity: {
+        seated: { status: "nao_informado" },
+        standing: { status: "nao_informado" },
+      },
+      additionalRules: "Necessário agendamento de visita prévia antes da confirmação da locação.",
+    },
     images: [
       "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=1200&q=80",
       "https://images.unsplash.com/photo-1544984243-ec57ea16fe25?w=1200&q=80",
@@ -134,7 +240,39 @@ export const venues: Venue[] = [
     capacityMax: 120,
     startingPrice: 1500,
     amenityIds: ["area-infantil", "cozinha", "wifi", "banheiros", "estacionamento"],
-    rules: ["Duração padrão de 5 horas", "Decoração deve ser removida até 1h após o evento"],
+    rules: {
+      operatingHours: {
+        allowedHours: { status: "permitido", detail: "Duração padrão de 5 horas" },
+        teardownTime: {
+          status: "permitido",
+          detail: "Até 1h após o evento",
+          description: "Prazo para remoção da decoração e desmontagem.",
+        },
+      },
+      music: {
+        musicAllowed: {
+          status: "permitido",
+          detail: "Som ambiente liberado",
+          description: "Ambiente fechado e climatizado; evitar volume excessivo.",
+        },
+      },
+      food: {
+        externalCatering: { status: "permitido", detail: "Buffet próprio ou terceirizado liberado" },
+      },
+      decoration: {
+        decorationAllowed: { status: "permitido", detail: "Liberada, sem restrição de tema" },
+      },
+      children: {
+        allowed: {
+          status: "permitido",
+          detail: "Bem-vindas",
+          description: "Decoração neutra do salão combina com festas infantis e chá revelação.",
+        },
+      },
+      parking: {
+        spots: { status: "permitido", detail: "Estacionamento próprio no local" },
+      },
+    },
     images: [
       "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=1200&q=80",
       "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=1200&q=80",
@@ -168,7 +306,29 @@ export const venues: Venue[] = [
     capacityMax: 40,
     startingPrice: 900,
     amenityIds: ["cozinha", "wifi", "area-coberta", "banheiros"],
-    rules: ["Uso exclusivo do condomínio, sem circulação em áreas comuns", "Som ambiente permitido até 23h"],
+    rules: {
+      condominium: {
+        circulationRestrictions: {
+          status: "permitido",
+          detail: "Uso exclusivo do espaço gourmet",
+          description: "Sem circulação em áreas comuns do condomínio.",
+        },
+      },
+      music: {
+        musicAllowed: { status: "permitido", detail: "Som ambiente permitido até 23h" },
+        externalSoundSystem: { status: "proibido", detail: "Não é permitido uso de caixa de som externa/amplificada" },
+      },
+      food: {
+        kitchenAvailable: { status: "permitido", detail: "Cozinha profissional disponível" },
+        externalDrinks: { status: "permitido", detail: "Bebidas externas liberadas" },
+      },
+      children: {
+        allowed: { status: "restrito", detail: "Permitidas com supervisão dos responsáveis" },
+      },
+      deposit: {
+        required: { status: "nao_informado" },
+      },
+    },
     images: [
       "https://images.unsplash.com/photo-1544148103-0773bf10d330?w=1200&q=80",
       "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=1200&q=80",
@@ -202,7 +362,34 @@ export const venues: Venue[] = [
     capacityMax: 100,
     startingPrice: 2200,
     amenityIds: ["wifi", "area-coberta", "banheiros"],
-    rules: ["Evento deve encerrar até meia-noite", "Não é permitido uso de fogos ou sinalizadores"],
+    rules: {
+      operatingHours: {
+        maxEndTime: { status: "permitido", detail: "Evento deve encerrar até a meia-noite" },
+      },
+      music: {
+        musicAllowed: { status: "permitido", detail: "Liberada até o encerramento do evento (meia-noite)" },
+      },
+      decoration: {
+        fireworks: { status: "proibido", detail: "Não é permitido uso de fogos ou sinalizadores" },
+        smokeMachine: { status: "proibido", detail: "Não é permitido uso de máquina de fumaça" },
+      },
+      food: {
+        externalCatering: { status: "permitido", detail: "Buffet próprio ou terceirizado liberado" },
+      },
+      children: {
+        allowed: {
+          status: "restrito",
+          detail: "Permitidas com supervisão",
+          description: "Terraço aberto — atenção redobrada com crianças pequenas.",
+        },
+      },
+      condominium: {
+        guestRegistration: {
+          status: "permitido",
+          detail: "Lista de convidados deve ser enviada à portaria com antecedência",
+        },
+      },
+    },
     images: [
       "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=1200&q=80",
       "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=1200&q=80",
@@ -236,7 +423,27 @@ export const venues: Venue[] = [
     capacityMax: 70,
     startingPrice: 1300,
     amenityIds: ["jardim", "cozinha", "estacionamento", "wifi"],
-    rules: ["Estacionamento limitado a 4 vagas", "Silêncio a partir das 22h por respeito à vizinhança"],
+    rules: {
+      operatingHours: {
+        allowedHours: { status: "restrito", detail: "Silêncio a partir das 22h por respeito à vizinhança" },
+      },
+      music: {
+        musicAllowed: { status: "restrito", detail: "Liberada com volume moderado até 22h" },
+      },
+      parking: {
+        spots: { status: "restrito", detail: "Estacionamento limitado a 4 vagas" },
+      },
+      food: {
+        externalCatering: { status: "permitido", detail: "Buffet próprio ou terceirizado liberado" },
+        kitchenAvailable: { status: "permitido", detail: "Cozinha equipada disponível" },
+      },
+      children: {
+        allowed: { status: "permitido", detail: "Bem-vindas" },
+      },
+      deposit: {
+        required: { status: "nao_informado" },
+      },
+    },
     images: [
       "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=1200&q=80",
       "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&q=80",
@@ -270,7 +477,38 @@ export const venues: Venue[] = [
     capacityMax: 300,
     startingPrice: 3800,
     amenityIds: ["piscina", "churrasqueira", "estacionamento", "area-coberta", "banheiros", "gerador"],
-    rules: ["Locação mínima de 8 horas", "Equipe de segurança própria obrigatória para eventos acima de 150 pessoas"],
+    rules: {
+      operatingHours: {
+        allowedHours: { status: "permitido", detail: "Locação mínima de 8 horas" },
+      },
+      security: {
+        mandatorySecurity: {
+          status: "restrito",
+          detail: "Obrigatória para eventos acima de 150 pessoas",
+          description: "Equipe de segurança própria contratada pelo locatário.",
+        },
+      },
+      food: {
+        barbecue: { status: "permitido", detail: "Estrutura de churrasqueira disponível" },
+        externalCatering: { status: "permitido", detail: "Buffet próprio ou terceirizado liberado" },
+      },
+      children: {
+        allowed: {
+          status: "permitido",
+          detail: "Bem-vindas",
+          description: "Campos de futebol e piscina disponíveis para recreação.",
+        },
+      },
+      pets: {
+        allowed: { status: "permitido", detail: "Bem-vindos", description: "Ambiente amplo e aberto." },
+      },
+      parking: {
+        spots: { status: "permitido", detail: "Amplo estacionamento no local" },
+      },
+      capacity: {
+        standing: { status: "nao_informado" },
+      },
+    },
     images: [
       "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1200&q=80",
       "https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=80",
@@ -304,7 +542,35 @@ export const venues: Venue[] = [
     capacityMax: 60,
     startingPrice: 2900,
     amenityIds: ["piscina", "churrasqueira", "estacionamento", "cozinha", "deck", "wifi"],
-    rules: ["Acesso controlado pela portaria do condomínio", "Lista de convidados deve ser enviada com antecedência"],
+    rules: {
+      condominium: {
+        circulationRestrictions: { status: "permitido", detail: "Acesso controlado pela portaria do condomínio" },
+        guestRegistration: {
+          status: "permitido",
+          detail: "Lista de convidados deve ser enviada com antecedência",
+        },
+      },
+      music: {
+        musicAllowed: {
+          status: "restrito",
+          detail: "Permitida com volume controlado",
+          description: "Conforme regras internas do condomínio.",
+        },
+      },
+      food: {
+        externalCatering: { status: "permitido", detail: "Buffet próprio ou terceirizado liberado" },
+        kitchenAvailable: { status: "permitido", detail: "Área gourmet integrada disponível" },
+      },
+      children: {
+        allowed: { status: "permitido", detail: "Bem-vindas" },
+      },
+      security: {
+        includedSecurity: { status: "permitido", detail: "Segurança 24 horas do condomínio" },
+      },
+      deposit: {
+        required: { status: "nao_informado" },
+      },
+    },
     images: [
       "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1200&q=80",
       "https://images.unsplash.com/photo-1613977257592-4871e5fcbf25?w=1200&q=80",
@@ -338,7 +604,30 @@ export const venues: Venue[] = [
     capacityMax: 150,
     startingPrice: 1100,
     amenityIds: ["cozinha", "banheiros", "estacionamento", "wifi"],
-    rules: ["Locação por período de 6 horas", "Não inclui decoração"],
+    rules: {
+      operatingHours: {
+        allowedHours: { status: "permitido", detail: "Locação por período de 6 horas" },
+      },
+      decoration: {
+        decorationAllowed: {
+          status: "permitido",
+          detail: "Permitida, por conta do locatário",
+          description: "O valor da locação não inclui serviço de decoração.",
+        },
+      },
+      food: {
+        externalCatering: { status: "permitido", detail: "Buffet próprio ou terceirizado liberado" },
+      },
+      children: {
+        allowed: { status: "permitido", detail: "Bem-vindas" },
+      },
+      parking: {
+        spots: { status: "permitido", detail: "Estacionamento próprio no local" },
+      },
+      deposit: {
+        required: { status: "nao_informado" },
+      },
+    },
     images: [
       "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=1200&q=80",
       "https://images.unsplash.com/photo-1541532713592-79a0317b6b77?w=1200&q=80",
@@ -372,7 +661,37 @@ export const venues: Venue[] = [
     capacityMax: 80,
     startingPrice: 1000,
     amenityIds: ["churrasqueira", "jardim", "estacionamento", "area-coberta"],
-    rules: ["Recolhimento do lixo é responsabilidade do locatário", "Uso de som limitado até 21h"],
+    rules: {
+      music: {
+        musicAllowed: { status: "restrito", detail: "Uso de som limitado até 21h" },
+      },
+      cleaning: {
+        trashRemoval: {
+          status: "proibido",
+          detail: "Recolhimento do lixo é responsabilidade do locatário",
+          description: "O sítio não inclui equipe de limpeza pós-evento.",
+        },
+      },
+      food: {
+        barbecue: { status: "permitido", detail: "Local para churrasco com mesas de madeira" },
+      },
+      children: {
+        allowed: {
+          status: "permitido",
+          detail: "Bem-vindas",
+          description: "Trilhas curtas e área arborizada — recomendamos supervisão dos responsáveis.",
+        },
+      },
+      pets: {
+        allowed: { status: "permitido", detail: "Bem-vindos" },
+      },
+      parking: {
+        spots: { status: "permitido", detail: "Estacionamento disponível no local" },
+      },
+      deposit: {
+        required: { status: "nao_informado" },
+      },
+    },
     images: [
       "https://images.unsplash.com/photo-1476231682828-37e571bc172f?w=1200&q=80",
       "https://images.unsplash.com/photo-1500534623283-312aade485b7?w=1200&q=80",
@@ -406,7 +725,32 @@ export const venues: Venue[] = [
     capacityMax: 35,
     startingPrice: 850,
     amenityIds: ["cozinha", "wifi", "banheiros"],
-    rules: ["Sem estacionamento próprio — rua com estacionamento público", "Evento deve encerrar até 23h"],
+    rules: {
+      operatingHours: {
+        maxEndTime: { status: "permitido", detail: "Evento deve encerrar até 23h" },
+      },
+      parking: {
+        spots: {
+          status: "proibido",
+          detail: "Sem estacionamento próprio",
+          description: "Rua com estacionamento público nas proximidades.",
+        },
+      },
+      food: {
+        kitchenAvailable: { status: "permitido", detail: "Cozinha compacta e completa disponível" },
+        externalCatering: { status: "permitido", detail: "Buffet próprio ou terceirizado liberado" },
+      },
+      children: {
+        allowed: {
+          status: "restrito",
+          detail: "Permitidas com supervisão",
+          description: "Casarão histórico com piso original preservado.",
+        },
+      },
+      deposit: {
+        required: { status: "nao_informado" },
+      },
+    },
     images: [
       "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1200&q=80",
       "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1200&q=80",
