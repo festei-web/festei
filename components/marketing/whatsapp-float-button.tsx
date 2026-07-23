@@ -11,9 +11,9 @@ const AVOID_MARGIN = 12;
 
 /**
  * Botão flutuante de WhatsApp, presente em todas as páginas (renderizado
- * uma única vez em app/layout.tsx). No mobile mostra só o ícone; a partir
- * de sm/ exibe também o texto "Fale com a Festei". Respeita a área segura
- * inferior de dispositivos com notch/gestos via env(safe-area-inset-*).
+ * uma única vez em app/layout.tsx). Sempre um círculo com o ícone, sem
+ * texto, em qualquer tamanho de tela. Respeita a área segura inferior de
+ * dispositivos com notch/gestos via env(safe-area-inset-*).
  *
  * Páginas com um CTA fixo/sticky próprio no canto inferior direito (ex.:
  * o painel de disponibilidade de /locais/[slug], que usa md:sticky
@@ -72,12 +72,11 @@ export function WhatsappFloatButton() {
       tabIndex={suppressed ? -1 : undefined}
       onClick={() => track("owner_whatsapp_clicked", {})}
       className={cn(
-        "fixed z-[200] flex h-14 w-14 items-center justify-center gap-2 rounded-full bg-whatsapp text-white shadow-[var(--shadow-lg)] transition-all duration-200 ease-out right-[max(1rem,env(safe-area-inset-right))] bottom-[max(1rem,env(safe-area-inset-bottom))] hover:-translate-y-0.5 hover:bg-whatsapp-hover hover:shadow-xl active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:h-auto sm:w-auto sm:justify-start sm:rounded-full sm:py-3.5 sm:pl-4 sm:pr-5 sm:right-[max(1.5rem,env(safe-area-inset-right))] sm:bottom-[max(1.5rem,env(safe-area-inset-bottom))]",
+        "fixed z-[200] flex h-14 w-14 items-center justify-center rounded-full bg-whatsapp text-white shadow-[var(--shadow-lg)] transition-all duration-200 ease-out right-[max(1rem,env(safe-area-inset-right))] bottom-[max(1rem,env(safe-area-inset-bottom))] hover:-translate-y-0.5 hover:bg-whatsapp-hover hover:shadow-xl active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:right-[max(1.5rem,env(safe-area-inset-right))] sm:bottom-[max(1.5rem,env(safe-area-inset-bottom))]",
         suppressed && "pointer-events-none translate-y-4 opacity-0"
       )}
     >
-      <MessageCircle className="h-6 w-6 shrink-0 sm:h-5 sm:w-5" aria-hidden />
-      <span className="hidden text-sm font-semibold sm:inline">Fale com a Festei</span>
+      <MessageCircle className="h-7 w-7 shrink-0" aria-hidden />
     </a>
   );
 }

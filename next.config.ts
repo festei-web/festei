@@ -1,8 +1,20 @@
 import type { NextConfig } from "next";
 
+/**
+ * 'unsafe-eval' só entra em desenvolvimento: o React em modo dev usa
+ * eval() para reconstruir stack traces (nunca em produção — ver
+ * https://react.dev). Sem isso, o CSP bloqueia o eval() do próprio
+ * React em `next dev`, o que o Next.js sinaliza como erro de runtime
+ * no indicador de dev tools. Em produção o CSP permanece estrito.
+ */
+const scriptSrc = ["'self'", "'unsafe-inline'"];
+if (process.env.NODE_ENV !== "production") {
+  scriptSrc.push("'unsafe-eval'");
+}
+
 const contentSecurityPolicy = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline'",
+  `script-src ${scriptSrc.join(" ")}`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' https://images.unsplash.com data:",
   "font-src 'self'",
@@ -22,6 +34,10 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Painel de dev tools do Next.js (indicador "N" no canto inferior
+  // esquerdo durante `next dev`) — desativado por não fazer parte da UI
+  // real do site; nunca aparece em produção de qualquer forma.
+  devIndicators: false,
   images: {
     remotePatterns: [
       {
