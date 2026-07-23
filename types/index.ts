@@ -170,6 +170,37 @@ export interface Amenity {
 }
 
 /**
+ * Estado de um item da seção "O que este local oferece". Diferente das
+ * comodidades simples (`Amenity`/`amenityIds`, uma lista plana), aqui cada
+ * item também pode estar disponível só mediante contratação separada —
+ * por isso quatro estados em vez de um booleano "tem/não tem".
+ */
+export type FeatureStatus = "included" | "optional" | "unavailable" | "unknown";
+
+export type FeatureCategory =
+  | "estrutura"
+  | "conforto"
+  | "tecnologia"
+  | "logistica"
+  | "servicos"
+  | "alimentacao";
+
+/**
+ * Um item de "O que este local oferece". Estrutura pensada para, no
+ * futuro, virar um formulário editável no painel do proprietário — cada
+ * item é uma linha configurável (nome + categoria + status + descrição),
+ * nunca um texto fixo no código (ver comentário em `data/venues.ts`).
+ * `id` só precisa ser único dentro do array `features` do próprio local.
+ */
+export interface ListingFeature {
+  id: string;
+  name: string;
+  category: FeatureCategory;
+  status: FeatureStatus;
+  description?: string;
+}
+
+/**
  * Localização pública aproximada de um local — a única informação
  * geográfica que pode chegar ao navegador do visitante. Gerada a partir
  * do centro do bairro com um deslocamento determinístico (ver
@@ -197,6 +228,7 @@ export interface Venue {
   startingPrice: number;
   amenityIds: string[];
   rules: ListingRules;
+  features: ListingFeature[];
   images: string[];
   featured: boolean;
   // Selo "Verificado" — independente de featured. Ver Design System Cap. 9

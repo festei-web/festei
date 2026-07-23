@@ -8,6 +8,7 @@ import { Breadcrumb } from "@/components/marketplace/breadcrumb";
 import { VenueGallery } from "@/components/marketplace/venue-gallery";
 import { AmenitiesGrid } from "@/components/marketplace/amenities-grid";
 import { VenueRulesSection } from "@/components/marketplace/venue-rules-section";
+import { VenueFeaturesSection } from "@/components/marketplace/venue-features-section";
 import { VenueLocationSection } from "@/components/marketplace/venue-location-section";
 import { VerifiedBadge } from "@/components/marketplace/verified-badge";
 import { DemoDataBanner } from "@/components/marketplace/demo-data-banner";
@@ -159,6 +160,11 @@ export default async function VenueDetailPage({
 
           {/* Regras do local */}
           <VenueRulesSection rules={venue.rules} />
+
+          <hr className="my-9 border-border/70" />
+
+          {/* O que este local oferece */}
+          <VenueFeaturesSection features={venue.features} />
 
           <hr className="my-9 border-border/70" />
 
