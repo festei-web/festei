@@ -1,4 +1,12 @@
 import { z } from "zod";
+import {
+  AVAILABILITY_STATUSES,
+  AVAILABILITY_SOURCES,
+  AVAILABILITY_TIMEZONE,
+  getISODateInTimeZone,
+  isPastDateISO,
+  isValidISODate,
+} from "@/lib/availability";
 
 // Campo-armadilha invisível para humanos, preenchido apenas por bots.
 // Se vier preenchido, a submissão é descartada silenciosamente (ver app/api/leads/route.ts).
@@ -6,12 +14,25 @@ const honeypot = z.string().max(0).optional().or(z.literal(""));
 
 // Formulário de solicitação de disponibilidade (cliente)
 // Canal de contato preferido é obrigatório — PRD Cap. 5, seção 5.24; Cap. 6, RF-018.
+//
+// eventDate é validado de novo aqui (formato + não pode estar no passado)
+// porque a única fonte confiável de "hoje" é o momento em que o servidor
+// recebe a requisição — nunca confiar apenas na checagem já feita no
+// calendário do cliente (prompt de melhorias, item 24).
 export const availabilityRequestSchema = z.object({
   name: z.string().trim().min(2, "Informe seu nome completo.").max(120),
   phone: z.string().trim().min(10, "Informe um telefone válido com DDD.").max(20),
   email: z.string().trim().email("Informe um e-mail válido.").max(160),
   eventType: z.string().min(1, "Selecione o tipo de evento."),
-  eventDate: z.string().min(1, "Informe a data prevista do evento."),
+  eventDate: z
+    .string()
+    .trim()
+    .min(1, "Selecione a data do evento no calendário.")
+    .refine(isValidISODate, "Data do evento em formato inválido.")
+    .refine(
+      (v) => !isValidISODate(v) || !isPastDateISO(v, getISODateInTimeZone(new Date())),
+      "A data do evento não pode estar no passado."
+    ),
   startTime: z.string().trim().max(10).optional(),
   endTime: z.string().trim().max(10).optional(),
   guestCount: z.coerce.number().int().min(1, "Informe a quantidade de convidados.").max(5000),
@@ -21,6 +42,12 @@ export const availabilityRequestSchema = z.object({
   message: z.string().trim().max(1000).optional(),
   venueId: z.string(),
   venueName: z.string(),
+  // Estado de disponibilidade conhecido no momento da seleção — nunca
+  // equivalente a uma reserva confirmada (ver lib/availability.ts).
+  availabilityStatus: z.enum(AVAILABILITY_STATUSES).default("unconfirmed"),
+  availabilitySource: z.enum(AVAILABILITY_SOURCES).default("none"),
+  selectedAt: z.string().trim().max(40).optional(),
+  timezone: z.string().trim().max(60).default(AVAILABILITY_TIMEZONE),
   website: honeypot,
 });
 

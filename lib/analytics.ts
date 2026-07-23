@@ -23,6 +23,10 @@ export type AnalyticsEvent =
   | "availability_submitted"
   | "availability_success"
   | "availability_error"
+  | "availability_calendar_viewed"
+  | "availability_month_changed"
+  | "event_date_selected"
+  | "unavailable_date_clicked"
   | "venue_map_region_link_clicked"
   // Proprietários
   | "owner_section_viewed"
@@ -40,4 +44,11 @@ export function track(event: AnalyticsEvent, payload?: Record<string, unknown>) 
     console.info(`[analytics] ${event}`, payload ?? {});
   }
   // TODO: encaminhar para a ferramenta de analytics real quando integrada.
+}
+
+/** "mobile" | "desktop" a partir da largura da viewport — nunca coleta
+ * nenhum dado pessoal, só o formato usado para segmentar eventos. */
+export function getDeviceType(): "mobile" | "desktop" {
+  if (typeof window === "undefined") return "desktop";
+  return window.matchMedia("(max-width: 640px)").matches ? "mobile" : "desktop";
 }

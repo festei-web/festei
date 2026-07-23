@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { MapPin, Users, Info, ListChecks, ShieldCheck, Wallet, UserRound } from "lucide-react";
+import { MapPin, Users, ListChecks, ShieldCheck, Wallet, UserRound } from "lucide-react";
 import { getVenueBySlug, getSimilarVenues } from "@/data/venues";
 import { getCategoryById } from "@/data/categories";
 import { eventTypeLabels, formatPrice } from "@/data/constants";
@@ -9,9 +9,8 @@ import { VenueGallery } from "@/components/marketplace/venue-gallery";
 import { AmenitiesGrid } from "@/components/marketplace/amenities-grid";
 import { VenueLocationSection } from "@/components/marketplace/venue-location-section";
 import { VerifiedBadge } from "@/components/marketplace/verified-badge";
-import { DemoAvailabilityNote } from "@/components/marketplace/demo-availability-note";
 import { DemoDataBanner } from "@/components/marketplace/demo-data-banner";
-import { AvailabilityForm } from "@/components/marketplace/availability-form";
+import { VenueRequestPanel } from "@/components/marketplace/venue-request-panel";
 import { VenueActionButtons } from "@/components/marketplace/venue-action-buttons";
 import { VenueCard } from "@/components/marketplace/venue-card";
 import { Badge } from "@/components/ui/badge";
@@ -212,19 +211,6 @@ export default async function VenueDetailPage({
               condições com você.
             </p>
           </section>
-
-          <hr className="my-9 border-border/70" />
-
-          {/* Calendário demonstrativo */}
-          <section>
-            <h2 className="flex items-center gap-2 text-lg font-semibold text-ink">
-              <Info className="h-5 w-5 text-primary" aria-hidden />
-              Disponibilidade
-            </h2>
-            <div className="mt-4">
-              <DemoAvailabilityNote status={venue.demoAvailability} />
-            </div>
-          </section>
         </div>
 
         {/* Painel de solicitação — não é um checkout, é um formulário de
@@ -235,7 +221,7 @@ export default async function VenueDetailPage({
             data-fab-avoid
             className="rounded-2xl border border-border bg-white p-6 shadow-[var(--shadow-lg)] md:sticky md:top-24"
           >
-            <AvailabilityForm venueId={venue.id} venueName={venue.name} venueSlug={venue.slug} />
+            <VenueRequestPanel venueId={venue.id} venueName={venue.name} venueSlug={venue.slug} />
             <hr className="my-5 border-border/70" />
             <div className="flex items-center justify-between text-sm">
               <span className="text-gray-medium">Valor de referência</span>

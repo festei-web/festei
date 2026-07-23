@@ -17,6 +17,12 @@ import { track } from "@/lib/analytics";
 import { eventTypeLabels } from "@/data/constants";
 import { WHATSAPP_CONTACT_URL } from "@/lib/site";
 import {
+  AVAILABILITY_TIMEZONE,
+  formatLongDatePtBR,
+  type AvailabilityStatus,
+  type AvailabilitySource,
+} from "@/lib/availability";
+import {
   availabilityRequestSchema,
   type AvailabilityRequestInput,
   type AvailabilityRequestValues,
@@ -50,10 +56,20 @@ export function AvailabilityForm({
   venueId,
   venueName,
   venueSlug,
+  selectedDate,
+  selectedAt,
+  availabilityStatus,
+  availabilitySource,
+  timezone = AVAILABILITY_TIMEZONE,
 }: {
   venueId: string;
   venueName: string;
   venueSlug: string;
+  selectedDate?: string | null;
+  selectedAt?: string | null;
+  availabilityStatus?: AvailabilityStatus;
+  availabilitySource?: AvailabilitySource;
+  timezone?: string;
 }) {
   const { show } = useToast();
   const [submitted, setSubmitted] = React.useState(false);
@@ -73,16 +89,40 @@ export function AvailabilityForm({
     register,
     handleSubmit,
     control,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<AvailabilityRequestInput>({
     resolver: zodResolver(availabilityRequestSchema),
-    defaultValues: { venueId, venueName },
+    defaultValues: {
+      venueId,
+      venueName,
+      eventDate: selectedDate ?? "",
+      availabilityStatus: availabilityStatus ?? "unconfirmed",
+      availabilitySource: availabilitySource ?? "none",
+      selectedAt: selectedAt ?? undefined,
+      timezone,
+    },
   });
+
+  // A data (e o status conhecido no momento da seleção) vem do calendário
+  // acima, no VenueRequestPanel — este formulário só reflete a seleção,
+  // inclusive se o visitante rolar a página ou reabrir o formulário
+  // (prompt de melhorias, item 9).
+  React.useEffect(() => {
+    setValue("eventDate", selectedDate ?? "", { shouldValidate: !!selectedDate });
+    setValue("availabilityStatus", availabilityStatus ?? "unconfirmed");
+    setValue("availabilitySource", availabilitySource ?? "none");
+    setValue("selectedAt", selectedAt ?? undefined);
+    setValue("timezone", timezone);
+  }, [selectedDate, selectedAt, availabilityStatus, availabilitySource, timezone, setValue]);
 
   async function onSubmit(values: AvailabilityRequestInput) {
     const payload: AvailabilityRequestValues = {
       ...values,
       guestCount: Number(values.guestCount),
+      availabilityStatus: values.availabilityStatus ?? "unconfirmed",
+      availabilitySource: values.availabilitySource ?? "none",
+      timezone: values.timezone ?? AVAILABILITY_TIMEZONE,
     };
     const result = await submitLead("availability_request", payload);
     if (result.ok) {
@@ -165,12 +205,22 @@ export function AvailabilityForm({
         )}
       />
 
+      {/* Campos preenchidos pelo calendário de disponibilidade acima —
+          somente leitura aqui para nunca haver duas fontes divergentes
+          para a mesma data (prompt de melhorias, item 9). */}
+      <input type="hidden" {...register("eventDate")} />
+      <input type="hidden" {...register("availabilityStatus")} />
+      <input type="hidden" {...register("availabilitySource")} />
+      <input type="hidden" {...register("selectedAt")} />
+      <input type="hidden" {...register("timezone")} />
+
       <div className="grid gap-4 sm:grid-cols-3">
         <Input
           label="Data do evento"
-          type="date"
+          value={selectedDate ? formatLongDatePtBR(selectedDate) : ""}
+          placeholder="Selecione uma data no calendário acima"
+          readOnly
           error={errors.eventDate?.message}
-          {...register("eventDate")}
         />
         <Input label="Início" type="time" {...register("startTime")} />
         <Input label="Término" type="time" {...register("endTime")} />
@@ -232,6 +282,15 @@ export function AvailabilityForm({
         placeholder="Conte um pouco mais sobre o seu evento…"
         {...register("message")}
       />
+
+      {selectedDate && (
+        <div className="rounded-xl border border-border bg-gray-light/60 p-3.5 text-sm">
+          <p className="font-medium text-ink">Resumo da solicitação</p>
+          <p className="mt-1 text-gray-medium">
+            {venueName} — {formatLongDatePtBR(selectedDate)}
+          </p>
+        </div>
+      )}
 
       <Button type="submit" size="lg" fullWidth loading={isSubmitting}>
         Consultar disponibilidade

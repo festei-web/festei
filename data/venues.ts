@@ -425,6 +425,10 @@ export function getVenueBySlug(slug: string) {
   return venues.find((s) => s.slug === slug);
 }
 
+export function getVenueById(id: string) {
+  return venues.find((s) => s.id === id);
+}
+
 export function getFeaturedVenues() {
   return venues.filter((s) => s.featured);
 }
