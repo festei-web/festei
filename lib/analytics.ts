@@ -23,6 +23,7 @@ export type AnalyticsEvent =
   | "availability_submitted"
   | "availability_success"
   | "availability_error"
+  | "venue_map_region_link_clicked"
   // Proprietários
   | "owner_section_viewed"
   | "owner_cta_clicked"
