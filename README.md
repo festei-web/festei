@@ -11,6 +11,8 @@ com captura real de leads, sem backend/banco de dados próprio nesta fase.
 - **Tailwind CSS v4** — tokens de design em `app/globals.css`
 - **React Hook Form + Zod** — formulários e validação (client e servidor)
 - **Lucide React** — ícones (nunca emoji, por decisão de identidade de marca)
+- **Leaflet + react-leaflet** — mapa de localização aproximada (tiles do
+  OpenStreetMap, sem chave de API — ver seção própria abaixo)
 - Sem banco de dados: os locais vêm de `data/venues.ts` (mock)
 
 ## Estrutura do projeto
@@ -107,6 +109,44 @@ nome, descrição, bairro, categoria, capacidade, preço, comodidades (IDs de
 `data/amenities.ts`), regras e um array de imagens. **Nenhum local tem
 campo de avaliação** — isso é intencional (funcionalidade de fase futura,
 ver `Space.demoAvailability` para o indicador visual permitido).
+
+## Mapa de localização aproximada
+
+A página de cada local (`/locais/[slug]`) mostra um mapa real e navegável
+(seção "Onde fica"), mas **nunca** o endereço exato — só uma área circular
+aproximada, para orientar o visitante sem revelar o imóvel antes da
+confirmação da solicitação.
+
+- **Provedor**: [OpenStreetMap](https://www.openstreetmap.org/) via
+  [Leaflet](https://leafletjs.com/) + [`react-leaflet`](https://react-leaflet.js.org/).
+  **Nenhuma chave de API é necessária.** Os tiles públicos do OSM têm uma
+  [política de uso](https://operations.osmfoundation.org/policies/tiles/)
+  que não é pensada para tráfego alto/comercial — adequada para este MVP,
+  mas antes de escalar a produção, considere migrar para um provedor de
+  tiles pago (MapTiler, Mapbox, Stadia Maps etc.) ou self-hosted. A URL do
+  tile server está centralizada em `lib/geo.ts` (`MAP_TILE_URL`), então a
+  troca é de uma linha.
+- **Como funciona a privacidade**: `Venue` (`types/index.ts`) separa
+  `publicLocation` (latitude/longitude/raio aproximado — o único dado
+  geográfico que chega ao navegador) dos campos opcionais
+  `realLatitude`/`realLongitude`/`fullAddress`, preparados para um backend
+  real mas **nunca preenchidos** nos dados demonstrativos (não há endereço
+  real a proteger nesta fase). A página de detalhes só lê e repassa
+  `publicLocation` para o componente de mapa — o componente de mapa nunca
+  recebe os campos privados, mesmo que um dia sejam preenchidos.
+- **Como cadastrar a localização pública de um novo local**: em
+  `data/venues.ts`, adicione `state: "RJ"` (ou o estado correto) e
+  `publicLocation: buildPublicLocation({ neighborhood, seed: <slug do
+  local>, density })` — `density` é `"urbano-denso"` | `"urbano"` |
+  `"suburbano"` | `"rural"` (define o raio do círculo: menor em regiões
+  densas, maior em chácaras/sítios). Se o bairro ainda não estiver em
+  `NEIGHBORHOOD_CENTERS` (`lib/geo.ts`), adicione seu centro aproximado
+  (coordenada pública do bairro, não de nenhum imóvel).
+- **Em produção real**: quando o cadastro de locais passar a ter endereço
+  exato, `buildPublicLocation`-equivalente deve rodar **no servidor**, a
+  partir da coordenada real, no momento do cadastro — nunca no navegador —
+  e o resultado (`publicLocation`) deve ser persistido, não recalculado a
+  cada carregamento de página.
 
 ## Como trocar as imagens
 

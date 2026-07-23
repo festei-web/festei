@@ -16,7 +16,9 @@ const contentSecurityPolicy = [
   "default-src 'self'",
   `script-src ${scriptSrc.join(" ")}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' https://images.unsplash.com data:",
+  // https://*.tile.openstreetmap.org: tiles do mapa aproximado da página de
+  // local (leaflet + react-leaflet, sem chave de API — ver lib/geo.ts).
+  "img-src 'self' https://images.unsplash.com https://*.tile.openstreetmap.org data:",
   "font-src 'self'",
   "connect-src 'self'",
   "frame-ancestors 'none'",

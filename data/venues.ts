@@ -1,8 +1,15 @@
 import type { Venue } from "@/types";
+import { buildPublicLocation } from "@/lib/geo";
 
 // Dados demonstrativos. Cobertura: Rio de Janeiro, cidade inteira (PRD Cap. 2, 2.5) —
 // bairros variados de propósito, nunca restritos a uma única região.
 // Nenhum local possui campo de avaliação: funcionalidade pós-MVP (Design System Cap. 9).
+//
+// `publicLocation` é gerada por buildPublicLocation() (lib/geo.ts) a partir
+// do centro do bairro — são coordenadas públicas de demonstração, nunca o
+// endereço real de nenhum imóvel (mapa aproximado — prompt de melhorias
+// sobre localização). Os campos privados (realLatitude/realLongitude/
+// fullAddress) do tipo Venue ficam propositalmente ausentes aqui.
 export const venues: Venue[] = [
   {
     id: "1",
@@ -13,6 +20,12 @@ export const venues: Venue[] = [
       "Uma casa aconchegante com quintal arborizado, ideal para aniversários e confraternizações em família. A piscina grande e a área gourmet coberta garantem conforto mesmo em dias quentes ou chuvosos. Cozinha totalmente equipada para facilitar o serviço de buffet ou catering. Estacionamento privativo para até 8 carros.",
     neighborhood: "Recreio dos Bandeirantes",
     city: "Rio de Janeiro",
+    state: "RJ",
+    publicLocation: buildPublicLocation({
+      neighborhood: "Recreio dos Bandeirantes",
+      seed: "casa-jardim-do-recreio",
+      density: "urbano",
+    }),
     category: "casa-piscina",
     recommendedEvents: ["aniversario", "confraternizacao", "festa-infantil"],
     capacityMin: 30,
@@ -41,6 +54,12 @@ export const venues: Venue[] = [
       "Localizado em uma região tranquila de Jacarepaguá, este sítio oferece um amplo local verde com churrasqueira de alvenaria, campo de futebol e trilhas curtas. Ambiente ideal para confraternizações de empresa, aniversários grandes e encontros de família que buscam contato com a natureza sem sair da cidade.",
     neighborhood: "Jacarepaguá",
     city: "Rio de Janeiro",
+    state: "RJ",
+    publicLocation: buildPublicLocation({
+      neighborhood: "Jacarepaguá",
+      seed: "sitio-vista-serra",
+      density: "suburbano",
+    }),
     category: "sitio",
     recommendedEvents: ["churrasco", "confraternizacao", "aniversario"],
     capacityMin: 50,
@@ -69,6 +88,12 @@ export const venues: Venue[] = [
       "Local completo para eventos de médio e grande porte, com salão coberto climatizado, piscina adulto e infantil, quiosque com churrasqueira e uma extensa área verde. Muito procurada para festas de 15 anos, casamentos informais e confraternizações corporativas.",
     neighborhood: "Vargem Grande",
     city: "Rio de Janeiro",
+    state: "RJ",
+    publicLocation: buildPublicLocation({
+      neighborhood: "Vargem Grande",
+      seed: "chacara-recanto-verde",
+      density: "rural",
+    }),
     category: "chacara",
     recommendedEvents: ["aniversario", "confraternizacao", "noivado"],
     capacityMin: 80,
@@ -97,6 +122,12 @@ export const venues: Venue[] = [
       "Salão fechado e climatizado, com decoração neutra que combina com qualquer tema de festa. Localização privilegiada na Tijuca, próximo a estações de metrô e fácil acesso para convidados de diferentes regiões da cidade. Ideal para festas infantis, chá revelação e aniversários de adultos.",
     neighborhood: "Tijuca",
     city: "Rio de Janeiro",
+    state: "RJ",
+    publicLocation: buildPublicLocation({
+      neighborhood: "Tijuca",
+      seed: "salao-jardim-tijuca",
+      density: "urbano-denso",
+    }),
     category: "salao",
     recommendedEvents: ["festa-infantil", "cha-revelacao", "aniversario"],
     capacityMin: 40,
@@ -125,6 +156,12 @@ export const venues: Venue[] = [
       "Um local gourmet moderno em prédio residencial de Botafogo, com cozinha profissional, adega climatizada e vista para o Pão de Açúcar. Ideal para jantares de confraternização, aniversários pequenos e reuniões corporativas descontraídas, sem abrir mão da sofisticação.",
     neighborhood: "Botafogo",
     city: "Rio de Janeiro",
+    state: "RJ",
+    publicLocation: buildPublicLocation({
+      neighborhood: "Botafogo",
+      seed: "espaco-gourmet-botafogo",
+      density: "urbano-denso",
+    }),
     category: "espaco-gourmet",
     recommendedEvents: ["confraternizacao", "aniversario", "noivado"],
     capacityMin: 15,
@@ -153,6 +190,12 @@ export const venues: Venue[] = [
       "Terraço no último andar de um edifício em Copacabana, com vista direta para o mar e pôr do sol privilegiado. Ambiente descolado, com iluminação de LED configurável e bar de apoio. Muito procurado para comemorações de aniversário, confraternizações de equipe e pequenos noivados.",
     neighborhood: "Copacabana",
     city: "Rio de Janeiro",
+    state: "RJ",
+    publicLocation: buildPublicLocation({
+      neighborhood: "Copacabana",
+      seed: "rooftop-vista-copacabana",
+      density: "urbano-denso",
+    }),
     category: "rooftop",
     recommendedEvents: ["aniversario", "confraternizacao", "noivado"],
     capacityMin: 20,
@@ -181,6 +224,12 @@ export const venues: Venue[] = [
       "Casa antiga reformada, preservando detalhes de época e com um quintal generoso nos fundos. A varanda ampla é perfeita para receber os convidados na chegada, e o quintal comporta mesas para almoços e jantares de família. Localização central facilita o acesso de quem vem de diferentes zonas da cidade.",
     neighborhood: "Vila Isabel",
     city: "Rio de Janeiro",
+    state: "RJ",
+    publicLocation: buildPublicLocation({
+      neighborhood: "Vila Isabel",
+      seed: "casa-vila-isabel",
+      density: "urbano-denso",
+    }),
     category: "casa",
     recommendedEvents: ["aniversario", "confraternizacao", "cha-revelacao"],
     capacityMin: 25,
@@ -209,6 +258,12 @@ export const venues: Venue[] = [
       "Uma das maiores chácaras da região de Guaratiba, com dois campos de futebol society, piscina de borda infinita e um salão de festas coberto com capacidade para 300 pessoas. Estrutura completa de banheiros e vestiários, ideal para confraternizações de empresas e grandes aniversários.",
     neighborhood: "Guaratiba",
     city: "Rio de Janeiro",
+    state: "RJ",
+    publicLocation: buildPublicLocation({
+      neighborhood: "Guaratiba",
+      seed: "chacara-guaratiba-sol",
+      density: "rural",
+    }),
     category: "chacara",
     recommendedEvents: ["confraternizacao", "aniversario", "churrasco"],
     capacityMin: 100,
@@ -237,6 +292,12 @@ export const venues: Venue[] = [
       "Residência de alto padrão em condomínio fechado na Barra da Tijuca, com piscina aquecida, deck de madeira e área gourmet integrada. Perfeita para aniversários que buscam mais exclusividade e conforto, com segurança 24 horas do próprio condomínio.",
     neighborhood: "Barra da Tijuca",
     city: "Rio de Janeiro",
+    state: "RJ",
+    publicLocation: buildPublicLocation({
+      neighborhood: "Barra da Tijuca",
+      seed: "casa-piscina-barra",
+      density: "urbano",
+    }),
     category: "casa-piscina",
     recommendedEvents: ["aniversario", "noivado", "confraternizacao"],
     capacityMin: 20,
@@ -265,6 +326,12 @@ export const venues: Venue[] = [
       "Salão amplo no Méier, com pé-direito alto, boa ventilação natural e fácil acesso pela Linha 2 do metrô e principais avenidas da Zona Norte. Excelente opção para quem busca um local funcional, com bom custo-benefício, sem abrir mão de conforto e estrutura.",
     neighborhood: "Méier",
     city: "Rio de Janeiro",
+    state: "RJ",
+    publicLocation: buildPublicLocation({
+      neighborhood: "Méier",
+      seed: "salao-festas-meier",
+      density: "urbano-denso",
+    }),
     category: "salao",
     recommendedEvents: ["aniversario", "festa-infantil", "confraternizacao"],
     capacityMin: 50,
@@ -293,6 +360,12 @@ export const venues: Venue[] = [
       "Refúgio verde em Campo Grande, com área arborizada, trilhas curtas para caminhada e um local central para churrasco com mesas de madeira. Ambiente descontraído, ótimo para encontros de família aos finais de semana e pequenas confraternizações.",
     neighborhood: "Campo Grande",
     city: "Rio de Janeiro",
+    state: "RJ",
+    publicLocation: buildPublicLocation({
+      neighborhood: "Campo Grande",
+      seed: "sitio-nova-friburgo-mirim",
+      density: "suburbano",
+    }),
     category: "sitio",
     recommendedEvents: ["churrasco", "confraternizacao"],
     capacityMin: 20,
@@ -321,6 +394,12 @@ export const venues: Venue[] = [
       "Instalado no térreo de um casarão histórico em Laranjeiras, este local gourmet combina charme antigo com conforto contemporâneo. Pé-direito alto, piso original preservado e uma cozinha compacta, porém completa. Perfeito para chás revelação, pequenos noivados e aniversários intimistas.",
     neighborhood: "Laranjeiras",
     city: "Rio de Janeiro",
+    state: "RJ",
+    publicLocation: buildPublicLocation({
+      neighborhood: "Laranjeiras",
+      seed: "espaco-gourmet-laranjeiras",
+      density: "urbano-denso",
+    }),
     category: "espaco-gourmet",
     recommendedEvents: ["cha-revelacao", "noivado", "aniversario"],
     capacityMin: 15,

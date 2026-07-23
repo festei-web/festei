@@ -7,7 +7,7 @@ import { eventTypeLabels, formatPrice } from "@/data/constants";
 import { Breadcrumb } from "@/components/marketplace/breadcrumb";
 import { VenueGallery } from "@/components/marketplace/venue-gallery";
 import { AmenitiesGrid } from "@/components/marketplace/amenities-grid";
-import { AreaPreview } from "@/components/marketplace/area-preview";
+import { VenueLocationSection } from "@/components/marketplace/venue-location-section";
 import { VerifiedBadge } from "@/components/marketplace/verified-badge";
 import { DemoAvailabilityNote } from "@/components/marketplace/demo-availability-note";
 import { DemoDataBanner } from "@/components/marketplace/demo-data-banner";
@@ -66,8 +66,15 @@ export default async function VenueDetailPage({
     address: {
       "@type": "PostalAddress",
       addressLocality: venue.neighborhood,
-      addressRegion: "RJ",
+      addressRegion: venue.state,
       addressCountry: "BR",
+    },
+    // Coordenada pública aproximada (mesma exibida no mapa) — nunca a
+    // localização real do imóvel. Ver lib/geo.ts.
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: venue.publicLocation.latitude,
+      longitude: venue.publicLocation.longitude,
     },
     priceRange: `A partir de R$ ${venue.startingPrice}`,
     maximumAttendeeCapacity: venue.capacityMax,
@@ -165,20 +172,14 @@ export default async function VenueDetailPage({
 
           <hr className="my-9 border-border/70" />
 
-          {/* Localização */}
-          <section>
-            <h2 className="flex items-center gap-2 text-lg font-semibold text-ink">
-              <MapPin className="h-5 w-5 text-primary" aria-hidden />
-              Localização
-            </h2>
-            <p className="mt-2 text-sm text-gray-medium">
-              {venue.neighborhood}, {venue.city} — o endereço completo é
-              compartilhado pela nossa equipe durante a negociação.
-            </p>
-            <div className="mt-4">
-              <AreaPreview neighborhood={venue.neighborhood} city={venue.city} />
-            </div>
-          </section>
+          {/* Onde fica */}
+          <VenueLocationSection
+            venueId={venue.id}
+            neighborhood={venue.neighborhood}
+            city={venue.city}
+            state={venue.state}
+            publicLocation={venue.publicLocation}
+          />
 
           <hr className="my-9 border-border/70" />
 
