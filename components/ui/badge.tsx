@@ -10,6 +10,8 @@ const badgeVariants = cva(
         neutral: "bg-gray-light text-ink",
         primary: "bg-primary-light text-primary",
         success: "bg-green-50 text-green-700",
+        error: "bg-red-50 text-red-700",
+        warning: "bg-amber-50 text-amber-700",
         outline: "border border-border text-gray-medium bg-white",
       },
     },

@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { MapPin, Users, ListChecks, ShieldCheck, Wallet, UserRound } from "lucide-react";
+import { MapPin, Users, ListChecks, Wallet, UserRound } from "lucide-react";
 import { getVenueBySlug, getSimilarVenues } from "@/data/venues";
 import { getCategoryById } from "@/data/categories";
 import { eventTypeLabels, formatPrice } from "@/data/constants";
 import { Breadcrumb } from "@/components/marketplace/breadcrumb";
 import { VenueGallery } from "@/components/marketplace/venue-gallery";
 import { AmenitiesGrid } from "@/components/marketplace/amenities-grid";
+import { VenueRulesSection } from "@/components/marketplace/venue-rules-section";
+import { VenueFeaturesSection } from "@/components/marketplace/venue-features-section";
 import { VenueLocationSection } from "@/components/marketplace/venue-location-section";
 import { VerifiedBadge } from "@/components/marketplace/verified-badge";
 import { DemoDataBanner } from "@/components/marketplace/demo-data-banner";
@@ -156,18 +158,13 @@ export default async function VenueDetailPage({
 
           <hr className="my-9 border-border/70" />
 
-          {/* Regras */}
-          <section>
-            <h2 className="flex items-center gap-2 text-lg font-semibold text-ink">
-              <ShieldCheck className="h-5 w-5 text-primary" aria-hidden />
-              Regras do local
-            </h2>
-            <ul className="mt-3 list-inside list-disc space-y-1.5 text-sm text-gray-medium">
-              {venue.rules.map((rule) => (
-                <li key={rule}>{rule}</li>
-              ))}
-            </ul>
-          </section>
+          {/* Regras do local */}
+          <VenueRulesSection rules={venue.rules} />
+
+          <hr className="my-9 border-border/70" />
+
+          {/* O que este local oferece */}
+          <VenueFeaturesSection features={venue.features} />
 
           <hr className="my-9 border-border/70" />
 
