@@ -8,16 +8,23 @@
 export const SITE_URL = "https://www.festeiapp.com.br";
 
 /**
- * Canal de contato secundário ("Falar com a Festei") para proprietários que
- * preferem conversar antes de enviar o cadastro (prompt de melhorias, item 18).
+ * Canais oficiais de atendimento da Festei.
  *
- * Configurado via variável de ambiente NEXT_PUBLIC_WHATSAPP_NUMBER (formato
- * internacional, apenas dígitos — ex.: 5521999999999). Nunca use um número
- * fictício aqui. Se a variável não estiver definida, WHATSAPP_CONTACT_URL
- * é `null` e qualquer componente que dependa dele deve se ocultar (ver
- * components/marketing/secondary-contact-cta.tsx).
+ * Única fonte de verdade para telefone/WhatsApp e e-mail de contato —
+ * usados no botão flutuante, no rodapé, na seção "Precisa de ajuda?" e nos
+ * formulários de lead. Configuráveis via NEXT_PUBLIC_WHATSAPP_NUMBER
+ * (formato internacional, apenas dígitos) e NEXT_PUBLIC_CONTACT_EMAIL,
+ * com os valores oficiais como padrão.
  */
-const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
+const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "5521936183831";
+
+/** Telefone formatado para exibição (rodapé, página de contato). */
+export const WHATSAPP_DISPLAY = "(21) 93618-3831";
+
+export const CONTACT_EMAIL =
+  process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "festei.contato@gmail.com";
+
+export const CONTACT_EMAIL_URL = `mailto:${CONTACT_EMAIL}`;
 
 /**
  * Prazo de retorno para proprietários após o envio do cadastro.
@@ -30,8 +37,12 @@ const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
 export const OWNER_RESPONSE_TIME_PLACEHOLDER =
   "em breve — o prazo exato será confirmado pela nossa equipe";
 
-export const WHATSAPP_CONTACT_URL = whatsappNumber
-  ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-      "Olá! Tenho um local para festas e gostaria de conversar sobre a Festei."
-    )}`
-  : null;
+/** Link wa.me com a mensagem padrão de contato geral do site. */
+export const WHATSAPP_CONTACT_URL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+  "Olá, vim pelo site da Festei e gostaria de mais informações."
+)}`;
+
+/** Link wa.me com mensagem voltada a proprietários (CTA "Falar com a Festei"). */
+export const WHATSAPP_OWNER_URL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+  "Olá! Tenho um local para festas e gostaria de conversar sobre a Festei."
+)}`;

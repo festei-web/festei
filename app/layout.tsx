@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { HelpSection } from "@/components/marketing/help-section";
+import { WhatsappFloatButton } from "@/components/marketing/whatsapp-float-button";
 import { ToastProvider } from "@/components/ui/toast";
 import { SITE_URL } from "@/lib/site";
 
@@ -56,7 +58,9 @@ export default function RootLayout({
         <ToastProvider>
           <Header />
           <main className="flex-1">{children}</main>
+          <HelpSection />
           <Footer />
+          <WhatsappFloatButton />
         </ToastProvider>
       </body>
     </html>

@@ -19,6 +19,7 @@ import {
 } from "@/schemas/lead";
 import { submitLead } from "@/lib/leads";
 import { captureLeadSource } from "@/lib/lead-source";
+import { WHATSAPP_CONTACT_URL } from "@/lib/site";
 
 /**
  * Formulário de triagem inicial de proprietários (prompt de melhorias,
@@ -97,6 +98,22 @@ export function OwnerLeadForm() {
           Nossa equipe verificará as informações e entrará em contato para
           conhecer melhor o local, explicar as condições da fase inicial e
           orientar os próximos passos.
+        </p>
+        <p className="mt-4 max-w-md text-sm text-gray-medium">
+          Recebemos suas informações. A equipe da Festei entrará em contato
+          em breve.
+        </p>
+        <p className="mt-2 max-w-md text-sm text-gray-medium">
+          Prefere falar agora?{" "}
+          <a
+            href={WHATSAPP_CONTACT_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-primary underline underline-offset-4 hover:text-primary-hover"
+          >
+            Chame a Festei pelo WhatsApp
+          </a>
+          .
         </p>
         <Button asChild variant="secondary" size="sm" className="mt-6">
           <Link href="/">Voltar para a página inicial</Link>

@@ -230,7 +230,10 @@ export default async function VenueDetailPage({
             planejamento. Preço aparece como referência, não como elemento
             dominante do painel (diferente do card lateral do Airbnb). */}
         <div>
-          <div className="rounded-2xl border border-border bg-white p-6 shadow-[var(--shadow-lg)] md:sticky md:top-24">
+          <div
+            data-fab-avoid
+            className="rounded-2xl border border-border bg-white p-6 shadow-[var(--shadow-lg)] md:sticky md:top-24"
+          >
             <AvailabilityForm venueId={venue.id} venueName={venue.name} venueSlug={venue.slug} />
             <hr className="my-5 border-border/70" />
             <div className="flex items-center justify-between text-sm">

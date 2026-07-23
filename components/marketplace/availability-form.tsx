@@ -15,6 +15,7 @@ import { useToast } from "@/components/ui/toast";
 import { submitLead } from "@/lib/leads";
 import { track } from "@/lib/analytics";
 import { eventTypeLabels } from "@/data/constants";
+import { WHATSAPP_CONTACT_URL } from "@/lib/site";
 import {
   availabilityRequestSchema,
   type AvailabilityRequestInput,
@@ -99,14 +100,32 @@ export function AvailabilityForm({
         title="Solicitação enviada com sucesso"
         description="Nossa equipe recebeu os dados do seu evento e vai confirmar disponibilidade e condições com o responsável pelo local, entrando em contato com você pelo canal informado."
         action={
-          <div className="mt-6 flex flex-col gap-2 sm:flex-row">
-            <Button asChild variant="secondary" size="sm">
-              <Link href="/locais">Voltar aos resultados</Link>
-            </Button>
-            <Button asChild variant="secondary" size="sm">
-              <Link href={`/locais/${venueSlug}`}>Ver este local novamente</Link>
-            </Button>
-          </div>
+          <>
+            <p className="mt-4 max-w-md text-sm text-gray-medium">
+              Recebemos suas informações. A equipe da Festei entrará em
+              contato em breve.
+            </p>
+            <p className="mt-2 max-w-md text-sm text-gray-medium">
+              Prefere falar agora?{" "}
+              <a
+                href={WHATSAPP_CONTACT_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-primary underline underline-offset-4 hover:text-primary-hover"
+              >
+                Chame a Festei pelo WhatsApp
+              </a>
+              .
+            </p>
+            <div className="mt-6 flex flex-col gap-2 sm:flex-row">
+              <Button asChild variant="secondary" size="sm">
+                <Link href="/locais">Voltar aos resultados</Link>
+              </Button>
+              <Button asChild variant="secondary" size="sm">
+                <Link href={`/locais/${venueSlug}`}>Ver este local novamente</Link>
+              </Button>
+            </div>
+          </>
         }
       />
     );

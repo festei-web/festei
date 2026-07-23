@@ -76,7 +76,9 @@ Veja `.env.example`. As mais importantes:
 - **`NEXT_PUBLIC_DEMO_MODE`** — `"true"` simula sucesso sem chamar a API,
   útil só para demonstrações. Nunca deixe ativado em produção real.
 - **`NEXT_PUBLIC_WHATSAPP_NUMBER`** / **`NEXT_PUBLIC_CONTACT_EMAIL`** —
-  opcionais, usados na página `/contato`.
+  opcionais; sobrescrevem os canais oficiais padrão (`lib/site.ts`) usados
+  no botão flutuante de WhatsApp, no rodapé, na seção "Precisa de ajuda?"
+  e na página `/contato`.
 
 ## Como funciona a captura de leads
 
