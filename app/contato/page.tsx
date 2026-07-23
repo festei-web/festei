@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { Mail, MessageCircle } from "lucide-react";
+import {
+  CONTACT_EMAIL,
+  CONTACT_EMAIL_URL,
+  WHATSAPP_CONTACT_URL,
+  WHATSAPP_DISPLAY,
+} from "@/lib/site";
 
 export const metadata: Metadata = { title: "Contato" };
-
-// Configure o número real da Festei em WHATSAPP_NUMBER (formato: 5521999999999,
-// sem símbolos). Enquanto não houver um número oficial, o link abaixo não
-// será renderizado — evitando um href="#" morto na página.
-const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
-const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "ola@festei.com.br";
 
 export default function ContatoPage() {
   return (
@@ -18,23 +18,21 @@ export default function ContatoPage() {
       </p>
       <div className="mt-8 flex flex-col gap-4">
         <a
-          href={`mailto:${contactEmail}`}
-          className="flex items-center gap-3 rounded-xl border border-border p-4 hover:border-primary"
+          href={CONTACT_EMAIL_URL}
+          className="flex items-center gap-3 rounded-xl border border-border p-4 transition-colors hover:border-primary"
         >
           <Mail className="h-5 w-5 text-primary" aria-hidden />
-          <span className="text-sm text-ink">{contactEmail}</span>
+          <span className="text-sm text-ink">{CONTACT_EMAIL}</span>
         </a>
-        {whatsappNumber && (
-          <a
-            href={`https://wa.me/${whatsappNumber}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-3 rounded-xl border border-border p-4 hover:border-primary"
-          >
-            <MessageCircle className="h-5 w-5 text-primary" aria-hidden />
-            <span className="text-sm text-ink">Falar no WhatsApp</span>
-          </a>
-        )}
+        <a
+          href={WHATSAPP_CONTACT_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-3 rounded-xl border border-border p-4 transition-colors hover:border-primary"
+        >
+          <MessageCircle className="h-5 w-5 text-primary" aria-hidden />
+          <span className="text-sm text-ink">WhatsApp: {WHATSAPP_DISPLAY}</span>
+        </a>
       </div>
     </div>
   );

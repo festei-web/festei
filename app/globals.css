@@ -36,6 +36,14 @@
   --color-coral-border: #ffc9bd;
   --color-coral-foreground: #ffffff;
 
+  /* WhatsApp — usado só no botão flutuante e em ícones de contato
+     (canais oficiais definidos em lib/site.ts). Verde mais escuro que o
+     "verde WhatsApp" oficial (#25D366), escolhido para manter texto/ícone
+     brancos legíveis dentro do próprio botão (contraste AA, WCAG 1.4.3)
+     sem deixar de remeter ao app, e sem competir com o roxo da marca. */
+  --color-whatsapp: #128c4a;
+  --color-whatsapp-hover: #0f7a40;
+
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;
@@ -75,6 +83,9 @@
   --color-coral-soft: var(--color-coral-soft);
   --color-coral-border: var(--color-coral-border);
   --color-coral-foreground: var(--color-coral-foreground);
+
+  --color-whatsapp: var(--color-whatsapp);
+  --color-whatsapp-hover: var(--color-whatsapp-hover);
 
   --radius-sm: var(--radius-sm);
   --radius-md: var(--radius-md);
